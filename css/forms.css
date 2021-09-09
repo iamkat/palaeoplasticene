@@ -1,0 +1,101 @@
+/* GENERAL CLASSES */
+.ppcInputError {
+    border: 1px solid red;
+}
+
+/* LOGIN FORM */
+#ppcLoginWrap {
+    width: 25%;
+}
+
+#ppcLoginForm {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+}
+
+.ppcLoginFormPart {
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.ppcLoginFormPart:not(:first-of-type) {
+    margin-top: 5%;
+}
+
+.ppcLoginInput {
+    height: 2rem;
+    border: 1px solid #666666;
+    border: var(--inputBorder);
+    border-radius: 1rem;
+    padding: 0 5%;
+}
+
+.ppcControl {
+    height: 2rem;
+    background: #666666;
+    background: var(--mainTextColor);
+    color: white;
+    color: var(--titleColor);
+    border: 1px solid #666666;
+    border: var(--controlBorder);
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+.ppcControl:hover {
+    background: rgba(255, 255, 255, 0.8);
+    background: var(--mainContentBg);
+    color: #666666;
+    color: var(--mainTextColor);
+    border: 1px solid #666666;
+    border: 1px solid var(--mainTextColor);
+    transition: all 0.5s ease-in-out;
+}
+
+#ppcLoginSubmit {
+    font: inherit;
+}
+
+/* EXPERIMENT FORM */
+#ppcExpForm {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+}
+
+.ppcExpFormPart {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+}
+
+.ppcExpFormPartImg {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+}
+
+#ppcExpControls {   
+}
+
+.ppcAdd {
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+    overflow: hidden;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.ppcAdd:hover {
+    background: rgba(255, 255, 255, 0.8);
+    background: var(--mainContentBg);
+    cursor: pointer;
+}
+
+.ppcExpImg {
+}
