@@ -21,3 +21,19 @@ Palaeoplasticene is an artistic research project exploring microplastic persiste
 [More about STUDIOTOPIA](https://www.studiotopia.eu "Studiotopia Website")
 
 Palaeoplasticene is realised through the STUDIOTOPIA programme, hosted by [Ars Electronica](https://ars.electronica.art/digitalhumanism/en/studiotopia/), which facilitates artists hosting scientists-in-residence and examines art-science collaborations. STUDIOTOPIA is Co-funded by the Creative Europe Programme of the European Union. 
+
+## Feature list
+
+### Done
+
+- Basic Frontend
+- Login/Logout mechanics
+- Data and file upload for a single experiment
+- Database
+
+### To do
+
+- User account management (profile page, account settings)
+- Manage multiple experiments (experiment data and files)
+- Upload mutliple files (with Drag & Drop)
+- and a lot more to come...
