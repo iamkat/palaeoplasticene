@@ -30,10 +30,16 @@ Palaeoplasticene is realised through the STUDIOTOPIA programme, hosted by [Ars E
 - Login/Logout mechanics
 - Data and file upload for a single experiment
 - Database
+- Edit photo metadata
+- Sort results via metadata values
 
 ### To do
 
-- User account management (profile page, account settings)
-- Manage multiple experiments (experiment data and files)
-- Upload mutliple files (with Drag & Drop)
+- Download images of one view with consistent filenames appended with consecutive numbers (pre-exhibition ready)
+- Add 3 new experiment protocol pages (without database interface) (exhibition ready) 
+- Make public results page with metadata sorting OR Make public results page with timelapse videos (exhibition ready) 
+- Make dummy account for exhibition OR Make screen video of uploading images for in front of the login-wall (exhibition ready) 
+- User account management (profile page, account settings) (not needed for exhibition)
+- Manage multiple experiments (experiment data and files) (preferred)
+- Upload mutliple files (with Drag & Drop) (preferred)
 - and a lot more to come...
