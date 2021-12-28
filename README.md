@@ -35,6 +35,7 @@ Palaeoplasticene is realised through the STUDIOTOPIA programme, hosted by [Ars E
 
 ### To do
 
+- Sort results via date per year and month
 - Download images of one view with consistent filenames appended with consecutive numbers (pre-exhibition ready)
 - Add 3 new experiment protocol pages (without database interface) (exhibition ready) 
 - Make public results page with metadata sorting OR Make public results page with timelapse videos (exhibition ready) 
