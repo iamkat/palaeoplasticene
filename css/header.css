@@ -1,0 +1,48 @@
+#homeLink {
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-size: clamp(3rem, 5vh, 6rem);
+  font-weight: 100;
+  color: white;
+  color: var(--titleColor);
+  transition: 0.25s ease-in-out;
+  text-align: center;
+  margin: 0;
+}
+
+#homeLink:hover, #homeLink:focus {
+  transform: scale(1.05);
+}
+
+#iconDisplay {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  flex: 1 0 100%;
+  min-height: 2.6rem;
+}
+
+.expIcon {
+  border: 1px solid var(--titleColor);
+  border-radius: min(5vw, 24px);
+  opacity: 0.6;
+  transition: all 0.1s ease-in-out;
+}
+
+.expIcon:hover, .expIcon:focus {
+    transform: scale(1.2);
+    opacity: 1;
+}
+
+.active {
+  opacity: 1;
+}
+
+.expIcon, .iconLink {
+  width: min(10vw, 48px);
+  height: min(10vw, 48px);
+}
+
+.iconLink {
+  margin: 0 0.5rem;
+}

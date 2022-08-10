@@ -4,8 +4,9 @@
     --mainTextColor: #666666;
     --titleColor: white;
     --mainContentBg: rgba(255, 255, 255, 0.8);
-    --mainFontFamily: 'Alegreya Sans SC', sans-serif;
-    --mainFSize: 1rem;
+    --mainTextFont: 'Alegreya Sans', sans-serif;
+    --mainHeadingFont: 'Alegreya Sans SC', sans-serif;
+    --mainFSize: clamp(1rem, 1.5vh, 24px);
     --mainBorder: 3px solid white;
     --inputBorder: 1px solid var(--mainTextColor);
     --controlBorder: 1px solid var(--titleColor);
@@ -14,104 +15,126 @@
 /* GENERAL SETTINGS */
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
+    height: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
     margin: 0;
     padding: 0;
-    background: black;
-    background: var(--mainBgColor);
+    background-color: black;
+    background-color: var(--mainBgColor);
     color: white;
     color: var(--titleColor);
-    font-family: 'Alegreya Sans SC', sans-serif;
-    font-family: var(--mainFontFamily);
+    font-family: 'Alegreya Sans', sans-serif;
+    font-family: var(--mainTextFont);
+    font-size: clamp(1rem, 2vh, 3rem);
     font-style: normal;
     font-weight: 300;
+    cursor: default;
 }
 
 /* HTML LAYOUT ELEMENTS */
 header, main, footer {
-    width: 80vw;
-    width: 80%;
-    margin: 0 auto;
+    width: 100vw;
+    width: 100%;
+    padding: 0 1vw;
+    padding: 0 clamp(1rem, 1vw, 2rem);
 }
 
 header {
-    height: 10vh;
-}
-
-header, nav {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     justify-content: center;
     align-items: center;
-}
-
-#ppcNav {
-    width: 100%;
-    justify-content: space-between;
+    margin-top: clamp(1rem, 1vh, 2rem);
 }
 
 main {
-    min-height: 85vh;
+    min-height: 75vh;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
+    margin: 2.5vh 0 auto;
 }
 
 footer {
-    height: 5vh;
+    height: 100%;
+    height: clamp(2rem, 5vh, 100px);
     display: flex;
     flex-flow: row nowrap;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: clamp(1rem, 1vh, 2rem);
 }
 
-article {
+nav {
     width: 100%;
-    padding: 2.5%;
-    margin: 2.5vh auto;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    flex: 1 0 100%;
 }
 
-article:first-of-type {
-    margin-top: 0;
+/* HEADINGS */
+h1, h2, h3, h4, h5, h6 {
+    width: 100%;
+    font-family: 'Alegreya Sans SC', sans-serif;
 }
 
-article:last-of-type {
+h1 {
+    font-size: clamp(2rem, 3vh, 4rem);
+    font-weight: 100;
+    margin: 0 0 min(1rem, 5vw);
+    text-align: center;
+}
+
+h2 {
+    font-size: clamp(1.5rem, 2.5vh, 3rem);
+    font-weight: 300;
+    margin: 0 0 min(0.5rem, 2.5vw);
+}
+
+h3 {
+    font-size: clamp(1rem, 2vh, 2rem);
+    font-weight: 300;
+    margin: min(0.2rem, 2vw) 0 0;
+}
+
+h4 {
+    font-size: clamp(0.8rem, 1.6vh, 1.6rem);
+    font-weight: 300;
+    margin: 0;
+}
+
+/* PARAGRAPHS */
+p {
+    margin: 0 0 min(1rem, 5vw)
+}
+
+p:first-child {
+    margin-top: min(1rem, 5vw);
+}
+
+p:last-child {
     margin-bottom: 0;
 }
 
-#ppcParticipateArticle {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
+/* LISTS */
+ul, ol {
+    padding: 0 0 0 min(1.5rem, 5vw);
 }
 
-/* CUSTOM LAYOUT ELEMENTS */
-#ppcTaphCrys {
+/* SECTIONS */
+section {
     width: 100%;
-    height: 100%;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
-}
-
-.ppcCircle {
-    border: 3px solid white;
-    border: var(--mainBorder);
-    border-radius: 50%;
-    overflow: hidden;
-    margin: 0 5vw;
-}
-
-#ppcTaphCircle, #ppcCrysCircle {
-    width: 320px;
-    height: 320px;
-}
-
-.ppcContent {
+    max-width: 960px;
     background: rgba(255, 255, 255, 0.8);
     background: var(--mainContentBg);
     color: #666666;
@@ -119,138 +142,42 @@ article:last-of-type {
     border: 3px solid white;
     border: var(--mainBorder);
     border-radius: 3rem;
+    padding: clamp(1rem, 3vw, 3rem);
+    margin: clamp(1rem, 2vh, 2rem) 0;
 }
 
-/* HEADINGS */
-h1 {
-    font-size: 3rem;
-    font-size: calc(3 * var(--mainFSize));
-    font-weight: 100;
-    margin: 0;
+section:first-of-type {
+    margin-top: 0;
 }
 
-h2 {
-    font-size: 2.5rem;
-    font-size: calc(2.5 * var(--mainFSize));
-    font-weight: 300;
-    margin: 0 0 1rem 0;
+section:last-of-type {
+    margin-bottom: 0;
 }
-
-h3 {
-    font-size: 2rem;
-    font-size: calc(2 * var(--mainFSize));
-    font-weight: 300;
-    margin: 0 0 1rem 0;
-}
-
-/* TEXT ELEMENTS */
 
 /* LINKS */
-#ppcHomeLink, #ppcLoginLink, #ppcLogoutBtn {
+#ppcLogoutBtn {
     color: white;
     color: var(--titleColor);
     transition: 0.5s ease-in-out
 }
 
-#ppcHomeLink:hover, #ppcHomeLink:focus {
-    transform: scale(1.05);
-}
-
-#ppcLoginLink:hover, #ppcLoginLink:focus, #ppcLogoutBtn:hover,#ppcLogoutBtn:focus {
+#ppcLogoutBtn:hover,#ppcLogoutBtn:focus {
     color: #666666;
     color: var(--mainTextColor);
 }
 
-.ppcLink {
+a {
     text-decoration: none;
     color: white;
     color: var(--titleColor);
-    transition: all 0.5s ease-in-out;
+    transition: color 0.5s ease-in-out;
 }
 
-.ppcLink:hover, .ppcLink:focus {
+a:hover, a:focus {
     color: #666666;
     color: var(--mainTextColor);
 }
 
-/* GUI ELEMENTS */
-button {
-  font-family: var(--main);
-}
-
-.ppcNavButton {
-    width: 48px;
-    height: 48px;
-    border: 1px solid white;
-    border-radius: 24px;
-    background: rgba(255, 255, 255, 0.8);
-    background: var(--mainContentBg);
-    overflow: hidden;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    visibility: hidden; /* Default Setting */
-    transition: transform 0.5s ease-in-out;
-}
-
-.ppcNavButton:hover {
-    transform: scale(1.1);
-    cursor: pointer;
-}
-
-.ppcNavButtonLabel {
-  visibility: hidden; /* Default Setting */
-  opacity: 0; /* Default Setting */
-  transition: 0.5s ease-in-out;
-}
-
-.ppcArrow, .ppcAdd {
-    width: 100%;
-    height: auto;
-}
-
-#ppcArrowRight {
-    transform: rotate(180deg);
-}
-
-#ppcLogoutBtn {
-  font-family: 'Alegreya Sans SC', sans-serif;
-  font-family: var(--mainFontFamily);
-  font-size: 1rem;
-  font-size: var(--mainFSize);
-  background: none;
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
-
-#ppcParticipateBtn {
-    height: 3rem;
-    height: calc(3 * var(--mainFSize));
-    border-radius: 1.5rem;
-    border-radius: calc(1.5 * var(--mainFSize));
-    font-size: 2rem;
-    font-size: calc(2 * var(--mainFSize));
-    font-weight: 100;
-    padding: 0 1rem;
-}
-
-/* IMAGES */
-.ppcExpLogo {
-    width: auto;
-    height: inherit;
-    transition: 0.5s ease-in-out;
-}
-
-.ppcExpLogo:hover {
-    transform: scale(1.2);
-}
-
-.ppcExpIcon {
-    width: 2rem;
-    height: 2rem;
-    border: 1px solid var(--titleColor);
-    border-radius: 1rem;
-    visibility: hidden; /* Default Setting */
+.ppcFooterLink {
+    font-family: 'Alegreya Sans SC', sans-serif;
 }
