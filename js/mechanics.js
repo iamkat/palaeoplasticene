@@ -45,7 +45,7 @@ if (secondHeadings) {
 
 // Event listener for Logout Button
 if (logoutBtn) {
-    logoutBtn.addEventListener("click", ppcLogout, false);
+    logoutBtn.addEventListener('click', ppcLogout, false);
 }
 
 /*

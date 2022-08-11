@@ -21,8 +21,8 @@
 }
 
 .ppcCircle {
-    width: clamp(160px, 15vw, 320px);
-    height: clamp(160px, 15vw, 320px);
+    width: clamp(120px, 15vw, 300px);
+    height: clamp(120px, 15vw, 300px);
     border: 3px solid white;
     border: var(--mainBorder);
     border-radius: 50%;
@@ -41,11 +41,4 @@
 
 .expLogo:hover, .expLogo:focus {
     transform: scale(1.2);
-}
-
-@media screen and (max-width: 768px) {
-    .ppcCircle {
-        width: clamp(200px, 15vw, 320px);
-        height: clamp(200px, 15vw, 320px);
-    }
 }

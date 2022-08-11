@@ -19,20 +19,20 @@
         case '/':
             ppcScript('index');
             break;
-        case "/index.php":
-            ppcScript("index");
+        case '/index.php':
+            ppcScript('index');
             break;
-        case "/login.php":
-            ppcScript("login");
+        case '/login.php':
+            ppcScript('login');
             break;
-        case "/profile.php":
-            ppcScript("profile");
+        case '/profile.php':
+            ppcScript('profile');
             break;
-        case "/overview.php":
-            ppcScript("overview");
+        case '/overview.php':
+            ppcScript('overview');
             break;
-        case "/experiment-taphonomy.php":
-            ppcScript("experimentTaphonomy");
+        case '/experiment-taphonomy.php':
+            ppcScript('experimentTaphonomy');
             break;
     }
 ?>

@@ -1,0 +1,3 @@
+RewriteEngine On
+
+ErrorDocument 404 https://palaeoplasticene.katausten.com/404.php

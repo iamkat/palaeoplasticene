@@ -43,19 +43,19 @@ session_start();
                 ppcStyle('index');
                 break;
             case "/index.php":
-                ppcStyle("index");
+                ppcStyle('index');
                 break;
-            case "/login.php":
-                ppcStyle("login");
+            case '/login.php':
+                ppcStyle('login');
                 break;
-            case "/profile.php":
-                ppcStyle("profile");
+            case '/profile.php':
+                ppcStyle('profile');
                 break;
-            case "/overview.php":
-                ppcStyle("overview");
+            case '/overview.php':
+                ppcStyle('overview');
                 break;
-            case "/experiment-taphonomy.php":
-                ppcStyle("experimentTaphonomy");
+            case '/experiment-taphonomy.php':
+                ppcStyle('experimentTaphonomy');
                 break;
         }
         ?>

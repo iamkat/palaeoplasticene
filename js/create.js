@@ -5,7 +5,6 @@
 // Heading
 function createHeading(number, content) {
     let ppcHeading = document.createElement("h" + number);
-    ppcHeading.classList.add("ppcHeading");
     ppcHeading.innerHTML = content;
     return ppcHeading;
 }
