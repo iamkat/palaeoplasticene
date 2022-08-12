@@ -39,10 +39,8 @@ session_start();
 
         // Switch to print style links for the different sites
         switch ($_SERVER["REQUEST_URI"]) {
-            case '/':
-                ppcStyle('index');
-                break;
-            case "/index.php":
+            case '/';
+            case '/index.php';
                 ppcStyle('index');
                 break;
             case '/login.php':

@@ -16,20 +16,28 @@
     }
 
     switch ($_SERVER["REQUEST_URI"]) {
-        case '/':
-            ppcScript('index');
-            break;
-        case '/index.php':
+        case '/';
+        case '/index.php';
             ppcScript('index');
             break;
         case '/login.php':
             ppcScript('login');
+            break;
+        case '/denied.php':
+            ppcScript('denied');
             break;
         case '/profile.php':
             ppcScript('profile');
             break;
         case '/overview.php':
             ppcScript('overview');
+            break;
+        case '/taphonomy.php';
+        case '/crystals.php';
+        case '/sounds.php';
+        case '/incidentaltaphonomy.php';
+        case '/fiction.php';
+            ppcScript('parsedown');
             break;
         case '/experiment-taphonomy.php':
             ppcScript('experimentTaphonomy');

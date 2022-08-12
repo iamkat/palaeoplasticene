@@ -8,12 +8,14 @@ require 'header.php';
 <?php
 try {
   // Database Login
-  require('./assets/credentials.php');
+  require 'queries/credentials.php';
 
   // Query
-  $categoriesQuery = $ppcDBLogin->prepare('SELECT ppc_category FROM ppc_categories');
+  $categoriesQuery = $dbConnection->prepare('SELECT ppc_category FROM ppc_categories');
   $categoriesQuery->execute();
   $_SESSION['categories'] = $categoriesQuery->fetchAll(PDO::FETCH_COLUMN);
+
+  $dbConnection = null;
 }
 catch(PDOException $error) {
   $_SESSION['categories'] = $error->getMessage();

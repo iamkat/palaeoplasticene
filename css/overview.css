@@ -1,0 +1,28 @@
+.overviewTitle {
+    width: 100%;
+    max-width: 960px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.overviewIcon {
+    width: min(10vw, 48px);
+    height: min(10vw, 48px);
+    border: 1px solid var(--titleColor);
+    border-radius: min(5vw, 24px);
+    margin-right: min(1rem, 5vw);
+}
+
+.overviewExperiment {
+    margin-bottom: 1rem;
+}
+
+.overviewExperiment:last-child {
+    margin-bottom: 0;
+}
+
+.expMeta {
+    margin: 0;
+}

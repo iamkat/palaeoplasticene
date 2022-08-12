@@ -17,12 +17,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    animation: fadeIn 0.1s;
-}
-
-@keyframes fadeIn {
-    0% {opacity: 0;}    
-    100% {opacity: 1;}
 }
 
 body {
@@ -39,10 +33,19 @@ body {
     color: var(--titleColor);
     font-family: 'Alegreya Sans', sans-serif;
     font-family: var(--mainTextFont);
-    font-size: clamp(1rem, 2vh, 3rem);
+    font-size: var(--mainFSize);
     font-style: normal;
     font-weight: 300;
     cursor: default;
+}
+
+body > * {
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    0% {opacity: 0;}    
+    100% {opacity: 1;}
 }
 
 /* HTML LAYOUT ELEMENTS */
@@ -92,31 +95,28 @@ nav {
 h1, h2, h3, h4, h5, h6 {
     width: 100%;
     font-family: 'Alegreya Sans SC', sans-serif;
+    margin: 0;
 }
 
 h1 {
     font-size: clamp(2rem, 3vh, 4rem);
     font-weight: 100;
-    margin: 0 0 min(1rem, 5vw);
     text-align: center;
 }
 
 h2 {
-    font-size: clamp(1.5rem, 2.5vh, 3rem);
+    font-size: clamp(1.5rem, 2.6vh, 3rem);
     font-weight: 300;
-    margin: 0 0 min(0.5rem, 2.5vw);
 }
 
 h3 {
-    font-size: clamp(1rem, 2vh, 2rem);
+    font-size: clamp(1.2rem, 2.4vh, 2.5rem);
     font-weight: 300;
-    margin: min(0.2rem, 2vw) 0 0;
 }
 
 h4 {
-    font-size: clamp(0.8rem, 1.6vh, 1.6rem);
+    font-size: clamp(0.8rem, 2vh, 2rem);
     font-weight: 300;
-    margin: 0;
 }
 
 /* PARAGRAPHS */
@@ -186,4 +186,36 @@ a:hover, a:focus {
 
 .ppcFooterLink {
     font-family: 'Alegreya Sans SC', sans-serif;
+}
+
+/* BUTTONS */
+button {
+    height: 2rem;
+    background-color: #666666;
+    background-color: var(--mainTextColor);
+    color: white;
+    color: var(--titleColor);
+    border: 1px solid #666666;
+    border: var(--controlBorder);
+    border-radius: 1rem;
+    cursor: pointer;
+    padding: 0 clamp(0.4rem, 2.5vw, 1rem) 0.1rem;
+}
+
+button:hover {
+    background-color: white;
+    background-color: var(--titleColor);
+    color: #666666;
+    color: var(--mainTextColor);
+    border: 1px solid #666666;
+    border: var(--inputBorder);
+}
+
+button:active {
+    background-color: #666666;
+    background-color: var(--mainTextColor);
+    color: white;
+    color: var(--titleColor);
+    border: 1px solid #666666;
+    border: var(--controlBorder);
 }

@@ -10,6 +10,8 @@ const userName = document.getElementById('ppcUsername');
 const passWord = document.getElementById('ppcUserpass');
 // Submit Button
 const loginSubmit = document.getElementById('loginSubmit');
+// Login error message area
+const loginError = document.getElementById('loginError');
 // Error message for username input
 const errorUser = 'Usernames cannot be empty and have to be composed out of minimum 3 lower or upper case characters or numbers. Please try again.';
 // Error message for password input
@@ -25,7 +27,7 @@ async function ppcLogin(formData) {
             method: 'POST',
             body: new FormData(formData),
         });
-        return await request.json();
+        return await request.text();
     } catch (error) {
         console.log(error);
     }
@@ -42,37 +44,26 @@ function validateInput(input, message) {
     }
 }
 
-// Function to store security values in the session storage
-function setSecurityValues(name, value) {
-    sessionStorage.setItem(name, value);
-}
-
 // -----------------------------------------------------------------
 // EVENT LISTENERS
 
 if (loginSubmit && userName && passWord) {
     loginSubmit.addEventListener('click', async function() {
+
         // Validate Inputs
         let usernameValidation = validateInput(userName, errorUser);
         let passwordValidation = validateInput(passWord, errorPassword);
 
         if (usernameValidation !== true) {
-            console.log(usernameValidation);
+            loginError.innerHTML = usernameValidation;
         } else if (passwordValidation !== true) {
-            console.log(passwordValidation);
+            loginError.innerHTML = passwordValidation;
         } else {
             const response = await ppcLogin(loginForm);
 
-            if (response.error !== '') {
-                console.log(response.error);
+            if (response !== '') {
+                loginError.innerHTML = response;
             } else {
-                // Remove error value from array
-                delete response.error;
-                
-                for (var key in response) {
-                    setSecurityValues(key, response[key]);
-                }
-
                 // Redirect to overview page
                 window.location.href = './overview.php';
             }
