@@ -71,10 +71,8 @@ if (!$_SESSION['categories']) {
     <?php
         // Begin of the loop to create the overview menu with the experiments for each category
         for ($i = 0; $i < sizeof($_SESSION['categories']); $i++) {
-            // Manipulate each category name and store it to a variable
-            $categoryTitle = trim($_SESSION['categories'][$i]);
-            $categoryTitle = preg_replace('/\s+/', '', $categoryTitle);
-            $categoryTitle = strtolower($categoryTitle);
+            // Manipulate each category name and store it to a variable (with a function)
+            $categoryTitle = categorySlug($_SESSION['categories'][$i]);
     ?>
         <div class="overviewTitle">
             <img class="overviewIcon" src="./assets/img/<?php print($categoryTitle); ?>.png" alt="<?php print($_SESSION['categories'][$i]); ?>">
@@ -106,6 +104,15 @@ if (!$_SESSION['categories']) {
     // End of the loop to create the overview menu
         }
     ?>
+    <section class="phpErrors">
+        <?php
+        foreach ($errors as $value) {
+            ?>
+            <p class="errorMsg"><?php print($value); ?></p>
+            <?php
+        }
+        ?>
+    </section>
 </main>
 
 <?php
