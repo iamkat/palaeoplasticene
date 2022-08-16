@@ -15,14 +15,52 @@
     margin-right: min(1rem, 5vw);
 }
 
+.categoryExperiments {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+}
+
 .overviewExperiment {
-    margin-bottom: 1rem;
+    flex: 1 0 auto;
+    margin: 0 1rem 1rem 0;
 }
 
 .overviewExperiment:last-child {
-    margin-bottom: 0;
+    margin: 0;
+}
+
+.newExperiment {
+    flex: 1 0 100%;
 }
 
 .expMeta {
     margin: 0;
+}
+
+.newBtn {
+    background-color: white;
+    background-color: var(--titleColor);
+    color: #666666;
+    color: var(--mainTextColor);
+    border: 1px solid #666666;
+    border: var(--inputBorder);
+}
+
+.newBtn:hover {
+    background-color: #666666;
+    background-color: var(--mainTextColor);
+    color: white;
+    color: var(--titleColor);
+    border: 1px solid #666666;
+    border: var(--controlBorder);
+}
+
+.newBtn:active {
+    background-color: white;
+    background-color: var(--titleColor);
+    color: #666666;
+    color: var(--mainTextColor);
+    border: 1px solid #666666;
+    border: var(--inputBorder);
 }

@@ -76,7 +76,7 @@ if (!$_SESSION['categories']) {
             <img class="overviewIcon" src="./assets/img/<?php print($categoryTitle); ?>.png" alt="<?php print($_SESSION['categories'][$i]); ?>">
             <h2><?php print($_SESSION['categories'][$i]); ?> Experiments</h2>
         </div>
-        <section>
+        <section class="categoryExperiments">
             
             <?php
             $experiments = queryExperiments($_SESSION['userID'], $categoryTitle);
@@ -88,25 +88,25 @@ if (!$_SESSION['categories']) {
 
                     <?php
                         foreach ($exp as $key => $value) {
+                            if ($key == 'ppc_exp_id' || $key == 'ppc_exp_name' || $key == 'ppc_usr_id') {
+                                continue;
+                            }
                             ?>
-                            <p class="expMeta"><strong><?php print($key); ?>:</strong> <?php print($value[$key]); ?></p>
+                            <p class="expMeta"><strong><?php print($key); ?>:</strong> <?php print($value); ?></p>
                             <?php
                         }
                     ?>
 
-                    <p class="expMeta"><strong>Location:</strong> <?php print($exp['ppc_exp_loc']); ?></p>
-                    <p class="expMeta"><strong>Surroundings:</strong> <?php print($exp['ppc_exp_surr']); ?></p>
-                    <p class="expMeta"><strong>License:</strong> <?php print($exp['ppc_license']); ?></p>
-    
                     <div>
-                        <button type="button" class="editBtn" data-experimentId="<?php print($exp['ppc_exp_id']) ?>">Edit</button>
+                        <button type="button" class="editBtn" data-category="<?php print($_SESSION['categories'][$i]); ?>" data-experimentId="<?php print($exp['ppc_exp_id']) ?>">Edit</button>
                     </div>
                 </div>
                 <?php
             }
             ?>
-
-            <button type="button" class="newBtn" data-category="<?php print($categoryTitle); ?>">New Experiment</button>
+            <div class="newExperiment">
+                <button type="button" class="newBtn" data-category="<?php print($categoryTitle); ?>">New Experiment</button>
+            </div>
         </section>
     <?php
     // End of the loop to create the overview menu
