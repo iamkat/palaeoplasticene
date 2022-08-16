@@ -2,10 +2,8 @@
 // Page Header
 require 'header.php';
 
-// Login Check
-if (!$_SESSION['user']) {
-    header('Location: denied.php');
-}
+// Login Check (with a custom function)
+checkLogin();
 
 // Array for errors
 $errors = array();
@@ -71,7 +69,7 @@ if (!$_SESSION['categories']) {
     <?php
         // Begin of the loop to create the overview menu with the experiments for each category
         for ($i = 0; $i < sizeof($_SESSION['categories']); $i++) {
-            // Manipulate each category name and store it to a variable (with a function)
+            // Manipulate each category name and store it to a variable (with a custom function)
             $categoryTitle = categorySlug($_SESSION['categories'][$i]);
     ?>
         <div class="overviewTitle">
@@ -83,15 +81,25 @@ if (!$_SESSION['categories']) {
             <?php
             $experiments = queryExperiments($_SESSION['userID'], $categoryTitle);
 
-            foreach ($experiments as $value) {
+            foreach ($experiments as $exp) {
                 ?>
                 <div class="overviewExperiment">
-                    <h3><?php print($value['ppc_exp_name']); ?></h3>
-                    <p class="expMeta"><strong>Location:</strong> <?php print($value['ppc_exp_loc']); ?></p>
-                    <p class="expMeta"><strong>Surroundings:</strong> <?php print($value['ppc_exp_surr']); ?></p>
-                    <p class="expMeta"><strong>License:</strong> <?php print($value['ppc_license']); ?></p>
+                    <h3><?php print($exp['ppc_exp_name']); ?></h3>
+
+                    <?php
+                        foreach ($exp as $key => $value) {
+                            ?>
+                            <p class="expMeta"><strong><?php print($key); ?>:</strong> <?php print($value[$key]); ?></p>
+                            <?php
+                        }
+                    ?>
+
+                    <p class="expMeta"><strong>Location:</strong> <?php print($exp['ppc_exp_loc']); ?></p>
+                    <p class="expMeta"><strong>Surroundings:</strong> <?php print($exp['ppc_exp_surr']); ?></p>
+                    <p class="expMeta"><strong>License:</strong> <?php print($exp['ppc_license']); ?></p>
+    
                     <div>
-                        <button type="button" class="editBtn" data-experimentId="<?php print($value['ppc_exp_id']) ?>">Edit</button>
+                        <button type="button" class="editBtn" data-experimentId="<?php print($exp['ppc_exp_id']) ?>">Edit</button>
                     </div>
                 </div>
                 <?php

@@ -54,6 +54,7 @@ if (loginSubmit && userName && passWord) {
         let usernameValidation = validateInput(userName, errorUser);
         let passwordValidation = validateInput(passWord, errorPassword);
 
+        // Validatoin checks
         if (usernameValidation !== true) {
             loginError.innerHTML = usernameValidation;
         } else if (passwordValidation !== true) {

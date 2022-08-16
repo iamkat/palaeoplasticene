@@ -15,15 +15,15 @@ $errorMsg = '';
 if (preg_match("/([a-zA-Z0-9]){3,}/", $_POST['ppcUsername']) == 1) {
    $userName = $_POST['ppcUsername'];
 } else {
-   $loginResponse = 'Usernames cannot be empty and have to be composed out of minimum 3 lower or upper case characters or numbers. Please try again.';
-   exit(print($loginResponse));
+   $errorMsg = 'Usernames cannot be empty and have to be composed out of minimum 3 lower or upper case characters or numbers. Please try again.';
+   exit($errorMsg);
 }
 
-if (preg_match("/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]){8,}/", $_POST["ppcUserpass"])) {
+if (preg_match("/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]){8,}/", $_POST["ppcUserpass"]) == 1) {
    $passWord = $_POST['ppcUserpass'];
 } else {
-   $loginResponse = 'Passwords cannot be empty and have to be composed out of minimum 8 characters with at least one lower and one upper case character as well as one number. Please try again.';
-   exit(print($loginResponse));
+   $errorMsg = 'Passwords cannot be empty and have to be composed out of minimum 8 characters with at least one lower and one upper case character as well as one number. Please try again.';
+   exit($errorMsg);
 }
 
 // Database interaction
@@ -52,6 +52,7 @@ if (empty($accountData)) {
    $errorMsg = 'Sorry, the password is incorrect. Try again or set a new password.';
 } else {
    $_SESSION['user'] = $userName;
+   $_SESSION['token'] = password_hash($userName, PASSWORD_DEFAULT);
 }
 
 // Output of JSON encoded Response
