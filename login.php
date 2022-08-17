@@ -17,7 +17,7 @@ require 'header.php';
             </fieldset>
 
             <fieldset class="formControls">
-                <button type="button" id="loginSubmit" class="formBtn">Login</button>
+                <button type="submit" id="loginSubmit" class="formBtn">Login</button>
             </fieldset>
         </form>
 

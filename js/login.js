@@ -34,32 +34,19 @@ async function ppcLogin(formData) {
 
 }
 
-// Function for input validation
-function validateInput(input, message) {
-    if (input.value === '' || !input.checkValidity() || input.validity.patternMismatch) {
-        input.setCustomValidity(message);
-        return input.validationMessage;
-    } else {
-        return true;
-    }
-}
-
 // -----------------------------------------------------------------
 // EVENT LISTENERS
 
 if (loginSubmit && userName && passWord) {
-    loginSubmit.addEventListener('click', async function() {
-
-        // Validate Inputs
-        let usernameValidation = validateInput(userName, errorUser);
-        let passwordValidation = validateInput(passWord, errorPassword);
+    loginSubmit.addEventListener('click', async function(event) {
 
         // Validatoin checks
-        if (usernameValidation !== true) {
-            loginError.innerHTML = usernameValidation;
-        } else if (passwordValidation !== true) {
-            loginError.innerHTML = passwordValidation;
+        if (!userName.checkValidity()) {
+            return loginError.innerHTML = userName.validationMessage;
+        } else if (!passWord.checkValidity()) {
+            return loginError.innerHTML = passWord.validationMessage;
         } else {
+            event.preventDefault();
             const response = await ppcLogin(loginForm);
 
             if (response !== '') {
