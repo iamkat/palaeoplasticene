@@ -98,7 +98,7 @@ if (!$_SESSION['categories']) {
                     ?>
 
                     <div>
-                        <button type="button" class="editBtn" data-category="<?php print($_SESSION['categories'][$i]); ?>" data-experimentId="<?php print($exp['ppc_exp_id']) ?>">Edit</button>
+                        <button type="button" class="editBtn" data-category="<?php print($categoryTitle); ?>" data-experiment-id="<?php print($exp['ppc_exp_id']) ?>">Edit</button>
                     </div>
                 </div>
                 <?php
@@ -111,16 +111,21 @@ if (!$_SESSION['categories']) {
     <?php
     // End of the loop to create the overview menu
         }
-    ?>
-    <section class="phpErrors">
-        <?php
-        foreach ($errors as $value) {
+        // Create an error section if errors exist
+        if (!empty($errors)) {
             ?>
-            <p class="errorMsg"><?php print($value); ?></p>
+            <section class="phpErrors">
             <?php
-        }
-        ?>
-    </section>
+                foreach ($errors as $value) {
+                    ?>
+                    <p class="errorMsg"><?php print($value); ?></p>
+                    <?php
+                    }
+                    ?>
+            </section>
+            <?php
+            }
+            ?>
 </main>
 
 <?php

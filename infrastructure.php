@@ -9,7 +9,9 @@ function checkLogin() {
     if (!$_SESSION['user'] || !$_SESSION['token']) {
         header('Location: denied.php');
     } elseif (!password_verify($_SESSION['user'], $_SESSION['token'])) {
-        header('Locatoin: denied.php');
+        header('Location: denied.php');
+    } else {
+        $_SESSION['authentication'] = true;
     }
 }
 

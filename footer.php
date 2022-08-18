@@ -1,7 +1,16 @@
 <footer>
-    <a class="ppcLink ppcFooterLink" href="./participate.php" target="_self" title="Participate with Palaeoplasticene Project">Participate</a>
-    <a id="loginLink" class="ppcLink ppcFooterLink" href="./login.php" target="_self" title="Login">Login</a>
-    <button id="logoutBtn" class="ppcFooterLink" type="button">Logout</button>
+
+    <?php 
+    if ($_SESSION['authentication'] == true) {
+        ?>
+        <button id="logoutBtn" type="button" title="Logout">Logout</button>
+        <?php 
+    } else {
+        ?>
+        <a id="loginLink" href="./login.php" target="_self" title="Login">Login</a>
+        <?php
+    }
+    ?>
 
 <?php 
 // SCRIPT AREA with the core functionalities (own small library) for other scripts to use, a switch to load page specific funtionalities according to the current page and basic page/template scripts (e. g. header functionalities)
@@ -46,7 +55,7 @@
 ?>
 
 <script src="./js/header.js" type="text/javascript"></script>
-<script src="./js/mechanics.js" type="text/javascript"></script>
+<script src="./js/footer.js" type="text/javascript"></script>
 
 </footer>
 </body>

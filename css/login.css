@@ -1,0 +1,27 @@
+#loginSection {
+    width: clamp(15rem, 20vw, 360px);
+}
+
+#loginForm {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+}
+
+#loginInputs {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+}
+
+.loginInput {
+    height: clamp(1rem, 5vh, 1.6rem);
+    border-radius: clamp(0.5rem, 2.5vh, 0.8rem);
+    padding: 0 1rem;
+    margin-bottom: min(1rem, 5vh);
+}
+
+#loginError {
+    margin-top: min(1rem, 5vh);
+    color: red;
+}

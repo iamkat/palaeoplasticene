@@ -1,0 +1,36 @@
+#loginLink {
+    height: 2rem;
+    line-height: 1.8rem;
+    background-color: #666666;
+    background-color: var(--mainTextColor);
+    color: white;
+    color: var(--titleColor);
+    border: 1px solid #666666;
+    border: var(--controlBorder);
+    border-radius: 1rem;
+    cursor: pointer;
+    padding: 0 clamp(0.4rem, 2.5vw, 1rem) 0.1rem;
+    transition: none;
+}
+
+#loginLink:hover {
+    background-color: white;
+    background-color: var(--titleColor);
+    color: #666666;
+    color: var(--mainTextColor);
+    border: 1px solid #666666;
+    border: var(--inputBorder);
+}
+
+#loginLink:active {
+    background-color: #666666;
+    background-color: var(--mainTextColor);
+    color: white;
+    color: var(--titleColor);
+    border: 1px solid #666666;
+    border: var(--controlBorder);
+}
+
+#logoutBtn {
+    margin: clamp(1rem, 1vh, 2rem) 0;
+}

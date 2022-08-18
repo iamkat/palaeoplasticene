@@ -35,6 +35,7 @@ require 'infrastructure.php';
         <link rel="stylesheet" href="./css/font.css" media="all" />
         <link rel="stylesheet" href="./css/style.css" media="all" />
         <link rel="stylesheet" href="./css/header.css" media="all" />
+        <link rel="stylesheet" href="./css/footer.css" media="all" />
         <link rel="stylesheet" href="./css/construction.css" media="all" />
 
         <?php

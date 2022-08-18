@@ -4,11 +4,11 @@ require 'header.php';
 ?>
 
 <main>
-    <section>
+    <section id="loginSection">
         <h2>User login</h2>
 
         <form id="loginForm" name="loginForm">
-            <fieldset>
+            <fieldset id="loginInputs">
                 <label for="ppcUsername">Username</label>
                 <input type="text" id="ppcUsername" class="loginInput" name="ppcUsername" minlength="3" maxlength="32" size="10" required pattern="[a-zA-Z0-9].{3,32}" />
 
