@@ -18,7 +18,7 @@ function queryExperiment($id, $category) {
 
         $experimentsQuery = $dbConnection->prepare($sql);
         $experimentsQuery->execute();
-        $data = $experimentsQuery->fetchAll(PDO::FETCH_COLUMN);
+        $data = $experimentsQuery->fetchAll(PDO::FETCH_ASSOC);
     
         $dbConnection = null;
     } catch (PDOException $error) {

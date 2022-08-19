@@ -49,7 +49,7 @@
             ppcScript('parsedown');
             break;
         case '/experiment-taphonomy.php':
-            ppcScript('experimentTaphonomy');
+            ppcScript('experiment');
             break;
     }
 ?>

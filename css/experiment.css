@@ -1,0 +1,66 @@
+.experimentIcon {
+    width: min(10vw, 48px);
+    height: min(10vw, 48px);
+    border: 1px solid var(--titleColor);
+    border-radius: min(5vw, 24px);
+    margin-right: min(1rem, 5vw);
+}
+
+.experimentTitle {
+    width: 100%;
+    max-width: 960px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#experimentData {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+}
+
+#dataForm {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+}
+
+.dataFields {
+    flex: 1 0 50%;
+}
+
+.dataInput {
+    max-width: 360px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+}
+
+#cancelExperiment {
+    background-color: white;
+    background-color: var(--titleColor);
+    color: #666666;
+    color: var(--mainTextColor);
+    border: 1px solid #666666;
+    border: var(--inputBorder);
+}
+
+#cancelExperiment:hover {
+    background-color: #666666;
+    background-color: var(--mainTextColor);
+    color: white;
+    color: var(--titleColor);
+    border: 1px solid #666666;
+    border: var(--controlBorder);
+}
+
+#cancelExperiment:active {
+    background-color: white;
+    background-color: var(--titleColor);
+    color: #666666;
+    color: var(--mainTextColor);
+    border: 1px solid #666666;
+    border: var(--inputBorder);
+}

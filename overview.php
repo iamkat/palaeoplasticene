@@ -84,11 +84,11 @@ if (!$_SESSION['categories']) {
             foreach ($experiments as $exp) {
                 ?>
                 <div class="overviewExperiment">
-                    <h3><?php print($exp['ppc_exp_name']); ?></h3>
+                    <h3><?php print($exp['Name']); ?></h3>
 
                     <?php
                         foreach ($exp as $key => $value) {
-                            if ($key == 'ppc_exp_id' || $key == 'ppc_exp_name' || $key == 'ppc_usr_id') {
+                            if ($key == 'ppc_exp_id' || $key == 'Name' || $key == 'ppc_usr_id') {
                                 continue;
                             }
                             ?>

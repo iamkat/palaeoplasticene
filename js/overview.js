@@ -1,7 +1,10 @@
+'use-strict'
+
 // ------------------------------------------------------------------
 // INFRASTRUCTURE
 
 const editBtns = document.querySelectorAll('.editBtn');
+const newBtns = document.querySelectorAll('.newBtn');
 
 // ------------------------------------------------------------------
 // FUNCTIONS
@@ -11,7 +14,19 @@ async function editExperiment(category, id) {
     helperForm.append('category',category);
     helperForm.append('experimentId', id);
 
-    const request = await fetch('./queries/prepareExperiment.php', {
+    const request = await fetch('./queries/getExperimentData.php', {
+        method: 'POST',
+        body: helperForm,
+    });
+
+    return await request.text();
+}
+
+async function newExperiment(category) {
+    const helperForm = new FormData();
+    helperForm.append('category', category);
+
+    const request = await fetch('./queries/setupNewExperiment.php', {
         method: 'POST',
         body: helperForm,
     });
@@ -33,7 +48,21 @@ if (editBtns) {
             if (response !== 'confirm') {
                 alert('Something went awefully wrong. We recommend you to logout, reload the page and try again.');
             } else {
-                window.location.href = './experiment-' + this.getAttribute('data-category') + '.php'
+                window.location.href = './experiment-' + this.getAttribute('data-category') + '.php';
+            }
+        }, false);
+    }
+}
+
+if (newBtns) {
+    for (let i = 0; i < newBtns.length; i++) {
+        newBtns[i].addEventListener('click', async function() {
+            const response = await newExperiment(this.getAttribute('data-category'));
+
+            if (response !== 'confirm') {
+                alert('Something went awefully wrong. We recommend you to logout, reload the page and try again.');
+            } else {
+                window.location.href = './experiment-' + this.getAttribute('data-category') + '.php';
             }
         }, false);
     }

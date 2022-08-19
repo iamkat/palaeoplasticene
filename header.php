@@ -60,7 +60,7 @@ require 'infrastructure.php';
                 ppcStyle('overview');
                 break;
             case '/experiment-taphonomy.php':
-                ppcStyle('experimentTaphonomy');
+                ppcStyle('experiment');
                 break;
         }
         ?>

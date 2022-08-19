@@ -175,6 +175,13 @@ fieldset {
     border: none;
 }
 
+.formControls {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+}
+
 /* BUTTONS */
 button {
     height: 2rem;
