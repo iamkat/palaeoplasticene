@@ -9,7 +9,7 @@ require 'header.php';
 // Prepare Parsedown
 $htmlContent = new Parsedown();
 // Parse the markdown content if the category exists (The variables $categoryName and $currentFilename are defined inside the header.php)
-if (in_array($categoryName, $_SESSION['categories'])) {
+if ($_SESSION['categories'][$currentFilename]) {
     print $htmlContent->text(file_get_contents('content/' . $currentFilename . '.md'));
 }
 ?>

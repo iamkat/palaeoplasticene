@@ -64,3 +64,22 @@
     border: 1px solid #666666;
     border: var(--inputBorder);
 }
+
+.imageGallery {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+}
+
+.imageFilter {
+    flex: 1 0 100%;
+}
+
+.thumbnail {
+    border: 3px solid white;
+    border-radius: min(2vh, 1rem);
+}
+
+.imageCheckbox {
+    display: none;
+}

@@ -39,12 +39,7 @@ require 'infrastructure.php';
         <link rel="stylesheet" href="./css/construction.css" media="all" />
 
         <?php
-        // Function to print style link
-        function ppcStyle($styleName) {
-            printf('<link rel="stylesheet" href="./css/%s.css" media="all" />', $styleName);
-        }
-
-        // Switch to print style links for the different sites
+        // Switch to print style links for the different sites with custom function (infrastructure.php)
         switch ($_SERVER["REQUEST_URI"]) {
             case '/';
             case '/index.php';
@@ -74,14 +69,17 @@ require 'infrastructure.php';
         <?php 
         // Check if the categories have been queried and exist as a session variable
         if ($_SESSION['categories']) {
+            // Add category pages to custom global array of pages where not to display the icons (infrastructure.php)
+            foreach ($_SESSION['categories'] as $key => $value) {
+                array_push($noIconsPages, '/experiment-' . $key . '.php');
+            }
+            
             // Conditionally render the navbar with icon display
-            if ($_SERVER['REQUEST_URI'] !== '/' && $_SERVER['REQUEST_URI'] !== '/index.php' && $_SERVER['REQUEST_URI'] !== '/overview.php') {
-                for ($i = 0; $i < sizeof($_SESSION['categories']); $i++) {
-                    // Manipulate each category name and store it to a variable (with a function)
-                    $categoryTitle = categorySlug($_SESSION['categories'][$i]);
-                ?>
-                    <a class="ppcLink iconLink" href="./<?php print($categoryTitle); ?>.php" target="_self" title="<?php print($_SESSION['categories'][$i]); ?>"><img class="expIcon" src="./assets/img/<?php print($categoryTitle); ?>.png" alt="<?php print($_SESSION['categories'][$i]); ?>" /></a>
-                <?php
+            if (!in_array($_SERVER['REQUEST_URI'], $noIconsPages)) {
+                foreach ($_SESSION['categories'] as $key => $value) {
+                    ?>
+                        <a class="ppcLink iconLink" href="./<?php print($key); ?>.php" target="_self" title="<?php print($value); ?>"><img class="expIcon" src="./assets/img/<?php print($key); ?>.png" alt="<?php print($value); ?>" /></a>
+                    <?php
                 }
             }
         }
@@ -89,16 +87,8 @@ require 'infrastructure.php';
         // Include Parsedown
         include 'vendor/Parsedown.php';
 
-        // Create Category Name out of current file name
+        // Get the current file name
         $currentFilename = basename($_SERVER['SCRIPT_FILENAME'], '.php');
-        $categoryName = ucfirst($currentFilename);
-
-        // Exceptions with two words as a category name
-        switch ($categoryName) {
-            case 'Incidentaltaphonomy':
-            $categoryName = 'Incidental Taphonomy';
-            break;
-        }
         ?>
 
         </nav>

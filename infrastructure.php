@@ -1,6 +1,12 @@
 <?php
 // -----------------------------------------------
-// FUNCTIONS
+// CUSTOM GLOBAL VARIABLES
+// -----------------------------------------------
+
+$noIconsPages = ['/', '/index.php', '/overview.php'];
+
+// -----------------------------------------------
+// CUSTOM FUNCTIONS
 // -----------------------------------------------
 
 // Function to check if a user is logged in
@@ -22,4 +28,14 @@ function categorySlug($name) {
     $slug = strtolower($slug);
     return $slug;
 }
+
+// Function to print style link
+function ppcStyle($styleName) {
+    printf('<link rel="stylesheet" href="./css/%s.css" media="all" />', $styleName);
+}
+
+// Scripts for different sites
+function ppcScript($scriptName) {
+    printf('<script src="./js/%s.js" type="text/javascript"></script>', $scriptName);
+  }
 ?>

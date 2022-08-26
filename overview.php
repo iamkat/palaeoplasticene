@@ -2,8 +2,11 @@
 // Page Header
 require 'header.php';
 
-// Login Check (with a custom function)
+// Login Check (with a custom function from infrastructure.php)
 checkLogin();
+
+// Clean up
+require 'queries/clearCache.php';
 
 // Array for errors
 $errors = array();
@@ -54,9 +57,13 @@ if (!$_SESSION['categories']) {
       
         $categoriesQuery = $dbConnection->prepare('SELECT ppc_category FROM ppc_categories');
         $categoriesQuery->execute();
-        $_SESSION['categories'] = $categoriesQuery->fetchAll(PDO::FETCH_COLUMN);
+        $categoriesData = $categoriesQuery->fetchAll(PDO::FETCH_COLUMN);
 
         $dbConnection = null;
+
+        foreach ($categoriesData as $value) {    
+          $_SESSION['categories'][categorySlug($value)] = $value;
+        }
       } catch (PDOException $error) {
         $errors[] = $error->getMessage();
       }
@@ -67,65 +74,61 @@ if (!$_SESSION['categories']) {
     <h1>Overview</h1>
 
     <?php
-        // Begin of the loop to create the overview menu with the experiments for each category
-        for ($i = 0; $i < sizeof($_SESSION['categories']); $i++) {
-            // Manipulate each category name and store it to a variable (with a custom function)
-            $categoryTitle = categorySlug($_SESSION['categories'][$i]);
-    ?>
+    // Begin of the loop to create the overview menu with the experiments for each category
+    foreach ($_SESSION['categories'] as $slug => $name) {
+        ?>
         <div class="overviewTitle">
-            <img class="overviewIcon" src="./assets/img/<?php print($categoryTitle); ?>.png" alt="<?php print($_SESSION['categories'][$i]); ?>">
-            <h2><?php print($_SESSION['categories'][$i]); ?> Experiments</h2>
+            <img class="overviewIcon" src="./assets/img/<?php print($slug); ?>.png" alt="<?php print($name); ?>">
+            <h2><?php print($name); ?> Experiments</h2>
         </div>
         <section class="categoryExperiments">
-            
-            <?php
-            $experiments = queryExperiments($_SESSION['userID'], $categoryTitle);
-
-            foreach ($experiments as $exp) {
-                ?>
-                <div class="overviewExperiment">
-                    <h3><?php print($exp['Name']); ?></h3>
-
-                    <?php
-                        foreach ($exp as $key => $value) {
-                            if ($key == 'ppc_exp_id' || $key == 'Name' || $key == 'ppc_usr_id') {
-                                continue;
-                            }
-                            ?>
-                            <p class="expMeta"><strong><?php print($key); ?>:</strong> <?php print($value); ?></p>
-                            <?php
-                        }
-                    ?>
-
-                    <div>
-                        <button type="button" class="editBtn" data-category="<?php print($categoryTitle); ?>" data-experiment-id="<?php print($exp['ppc_exp_id']) ?>">Edit</button>
-                    </div>
-                </div>
+        
+        <?php
+        $experiments = queryExperiments($_SESSION['userID'], $slug);
+        foreach ($experiments as $exp) {
+            ?>
+            <div class="overviewExperiment">
+                <h3><?php print($exp['Name']); ?></h3>
                 <?php
+                    foreach ($exp as $key => $value) {
+                        if ($key == 'ppc_exp_id' || $key == 'Name' || $key == 'ppc_usr_id') {
+                            continue;
+                        }
+                        ?>
+                        <p class="expMeta"><strong><?php print($key); ?>:</strong> <?php print($value); ?></p>
+                        <?php
+                    }
+                ?>
+                <div>
+                    <button type="button" class="editBtn" data-category="<?php print($slug); ?>" data-experiment-id="<?php print($exp['ppc_exp_id']) ?>">Edit</button>
+                </div>
+            </div>
+            <?php
+        }
+        ?>
+        <div class="newExperiment">
+            <button type="button" class="newBtn" data-category="<?php print($slug); ?>">New Experiment</button>
+        </div>
+        </section>
+        <?php
+        // End of the loop to create the overview menu
+    }
+
+    // Create an error section if errors exist
+    if (!empty($errors)) {
+        ?>
+        <section class="phpErrors">
+        <?php
+            foreach ($errors as $error) {
+            ?>
+                <p class="errorMsg"><?php print($error); ?></p>
+            <?php
             }
             ?>
-            <div class="newExperiment">
-                <button type="button" class="newBtn" data-category="<?php print($categoryTitle); ?>">New Experiment</button>
-            </div>
         </section>
     <?php
-    // End of the loop to create the overview menu
-        }
-        // Create an error section if errors exist
-        if (!empty($errors)) {
-            ?>
-            <section class="phpErrors">
-            <?php
-                foreach ($errors as $value) {
-                    ?>
-                    <p class="errorMsg"><?php print($value); ?></p>
-                    <?php
-                    }
-                    ?>
-            </section>
-            <?php
-            }
-            ?>
+    }
+    ?>
 </main>
 
 <?php

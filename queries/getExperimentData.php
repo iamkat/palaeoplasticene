@@ -4,8 +4,8 @@ session_start();
 // -----------------------------------------------
 
 // Experiment variables
-$category = $_POST['category'];
-$experimentId = $_POST['experimentId'];
+$_SESSION['experimentCategory'] = $_POST['category'];
+$_SESSION['experimentId'] = $_POST['experimentId'];
 
 // Function to query an experiment with its ID
 function queryExperiment($id, $category) {
@@ -29,7 +29,7 @@ function queryExperiment($id, $category) {
 }
 
 // Check for experiment
-$experiment = queryExperiment($experimentId, $category);
+$experiment = queryExperiment($_SESSION['experimentId'], $_SESSION['experimentCategory']);
 
 if (empty($experiment)) {
     exit();

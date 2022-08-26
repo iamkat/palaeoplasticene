@@ -19,11 +19,6 @@
 <script src="./js/create.js" type="text/javascript"></script>
 
 <?php
-    // Scripts for different sites
-    function ppcScript($scriptName) {
-      printf('<script src="./js/%s.js" type="text/javascript"></script>', $scriptName);
-    }
-
     switch ($_SERVER["REQUEST_URI"]) {
         case '/';
         case '/index.php';
