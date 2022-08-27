@@ -176,10 +176,14 @@ fieldset {
 }
 
 .formControls {
-    width: 100%;
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-end;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+textarea {
+    resize: none;
+    height: 3rem;
 }
 
 /* BUTTONS */
@@ -198,6 +202,7 @@ button {
     border-radius: 1rem;
     cursor: pointer;
     padding: 0 clamp(0.4rem, 2.5vw, 1rem) 0.1rem;
+    white-space: nowrap;
 }
 
 button:hover {

@@ -25,6 +25,12 @@ if ($_SESSION['experimentId']) {
 }
 
 if (!empty($taphonomyImages)) {
-    $_SESSION['taphonomyImages'] = $taphonomyImages;
+    if ($_POST['js']) {
+        $taphonomyImages['experimentId'] = $_SESSION['experimentId'];
+        $taphonomyImages['user'] = $_SESSION['user'];
+        exit(json_encode($taphonomyImages));
+    } else {
+        $_SESSION['taphonomyImages'] = $taphonomyImages;
+    }
 }
 ?>

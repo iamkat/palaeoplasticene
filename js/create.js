@@ -62,7 +62,28 @@ function createImage(source, className, altText) {
     ppcImage.src = source;
     ppcImage.classList.add(className);
     ppcImage.alt = altText;
+    ppcImage.loading = 'lazy';
     return ppcImage;
+}
+
+// Labels
+function createLabel(forValue, content) {
+    let ppcLabel = document.createElement('label');
+    ppcLabel.setAttribute('for', forValue);
+    ppcLabel.innerHTML = content;
+    return ppcLabel;
+}
+
+// Inputs
+function createInput(typeValue, className, idValue, nameValue, valueAttr, formName) {
+    let ppcInput = document.createElement('input');
+    ppcInput.type = typeValue;
+    ppcInput.classList.add(className);
+    ppcInput.id = idValue;
+    ppcInput.name = nameValue;
+    ppcInput.value = valueAttr;
+    ppcInput.form = formName;
+    return ppcInput;
 }
 
 // Overview Elements
@@ -73,4 +94,48 @@ function createHr() {
     ppcHr.classList.add("ppcHrLine");
     ppcHr.setAttribute("id", "ppcExpOverviewLine");
     return ppcHr;
+}
+
+// Taphonomy Experiment Elements
+
+function createImgLabel(forValue, content) {
+    let ppcLabel = document.createElement('label');
+    ppcLabel.setAttribute('for', forValue);
+    ppcLabel.appendChild(content);
+    return ppcLabel;
+}
+
+function createImgCheckbox(imgId, nameValue, filename) {
+    let imgCheckbox = document.createElement('input');
+    imgCheckbox.type = 'checkbox';
+    imgCheckbox.classList.add('imageCheckbox');
+    imgCheckbox.id = imgId;
+    imgCheckbox.name = nameValue;
+    imgCheckbox.value = filename;
+    return imgCheckbox;
+}
+
+function createTaphonomyImage(user, expId, imgId, filename, view, key) {
+    let imgPath = './uploads/' + user + '/taphonomy/' + expId + '/thumbs/' + filename;
+    
+    let imgDiv = createDiv('experimentImage');
+    imgDiv.setAttribute('data-view', view);
+
+    let imgLabel = createImgLabel(imgId, createImage(imgPath, 'thumbnail', filename));
+    let imgInput = createImgCheckbox(imgId, imgId, filename);
+    imgInput.setAttribute('data-key', key);
+
+    imgDiv.appendChild(imgLabel);
+    imgDiv.appendChild(imgInput);
+
+    return imgDiv;
+}
+
+function createEditFieldset(imgId) {
+    let imgFieldset = document.createElement('fieldset');
+    imgFieldset.classList.add('imageFieldset');
+
+
+
+    return imgFieldset;
 }

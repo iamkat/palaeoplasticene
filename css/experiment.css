@@ -22,23 +22,30 @@
 }
 
 #dataForm {
+    width: 100%;
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
 }
 
 .dataFields {
-    flex: 1 0 50%;
+    flex: 2 0 30%;
+    margin: 0 auto;
 }
 
 .dataInput {
-    max-width: 360px;
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
+    margin: 0;
 }
 
-#cancelExperiment {
+.dataStats, #experimentControls {
+    flex: 1 0 10rem;
+    margin: 0 auto;
+}
+
+#cancelExperiment, #cancelImage {
     background-color: white;
     background-color: var(--titleColor);
     color: #666666;
@@ -47,7 +54,7 @@
     border: var(--inputBorder);
 }
 
-#cancelExperiment:hover {
+#cancelExperiment:hover, #cancelImage:hover {
     background-color: #666666;
     background-color: var(--mainTextColor);
     color: white;
@@ -56,7 +63,7 @@
     border: var(--controlBorder);
 }
 
-#cancelExperiment:active {
+#cancelExperiment:active, #cancelImage:active {
     background-color: white;
     background-color: var(--titleColor);
     color: #666666;
@@ -67,19 +74,85 @@
 
 .imageGallery {
     display: flex;
-    flex-flow: row wrap;
-    justify-content: space-evenly;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
 }
 
 .imageFilter {
     flex: 1 0 100%;
 }
 
+.images {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    flex: 1 0 100%;
+}
+
+.experimentImage > label {
+    cursor: pointer;
+}
+
 .thumbnail {
     border: 3px solid white;
     border-radius: min(2vh, 1rem);
+    opacity: 0.8;
+}
+
+.thumbnail:hover {
+    opacity: 1;
 }
 
 .imageCheckbox {
     display: none;
+}
+
+/* EDIT */
+#editModal {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(102, 102, 102, 0.9);
+    padding: 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#editForm {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+}
+
+.imageData {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    flex: 1 0 15rem;
+    padding: 0 0.4rem;
+}
+
+.imageInput {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+}
+
+#editImage {
+    width: 100%;
+    border: 3px solid white;
+    border-radius: min(2vh, 1rem);
+}
+
+#imageFile {
+    display: none;
+}
+
+#editControls {
+    flex: 1 0 100%;
+    justify-content: flex-end;
 }
