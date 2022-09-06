@@ -34,7 +34,7 @@ include 'queries/getTaphonomyViews.php';
 include 'queries/getTaphonomyImages.php';
 
 // Get Licenses
-include './queries/getLicenses.php';
+include 'queries/getLicenses.php';
 ?>
 
 <main>
@@ -82,6 +82,7 @@ include './queries/getLicenses.php';
 
             <fieldset class="dataStats">
                 <?php
+                // The session cookie with the array of queried experiment images is set during the experiment query (getTaphonomyImages.php)
                 if ($_SESSION['taphonomyImages']) {
                     // Stats calculation
                     foreach ($_SESSION['taphonomyImages'] as $image) {
@@ -106,9 +107,10 @@ include './queries/getLicenses.php';
             </fieldset>
 
             <fieldset class="formControls" id="experimentControls">
-                <button type="button" id="addImage" class="formBtn">Upload Images</button>
-                <button type="button" id="cancelExperiment" class="formBtn">Cancel</button>
-                <button type="submit" id="saveExperiment" class="formBtn">Save</button>
+                <label for="fileUpload" class="formBtn">Upload Images</label>
+                <input type="file" id="fileUpload" name="fileUpload" accept="image/jpeg, image/png" multiple form="uploadForm">
+                <button type="button" id="cancelExperiment" class="formBtn cancelBtn">Cancel</button>
+                <button type="submit" id="saveExperiment" class="formBtn saveBtn" form="dataForm">Save</button>
             </fieldset>
 
         </form>
@@ -123,7 +125,8 @@ include './queries/getLicenses.php';
                 <label for="viewFilter">Filter by View</label>
                 <select id="viewFilter" name="viewFilter">
                     <option value="All">All</option>
-                    <?php 
+                    <?php
+                    // The session cookie with the array of experiment views is set during after query of existing views (getTaphonomyViews.php)
                     foreach ($_SESSION['views'] as $value) {
                         ?>
                         <option value="<?php print($value); ?>"><?php print($value); ?></option>
@@ -140,7 +143,7 @@ include './queries/getLicenses.php';
 
     <div class="modal" id="editModal">
         <section id="editSection">
-            <form id="editForm" name="editForm">
+            <form id="editForm" name="editForm" enctype="multipart/form-data">
                 <fieldset class="imageData">
                     <div class="imageInput">
                         <label for="imageFile">
@@ -186,18 +189,25 @@ include './queries/getLicenses.php';
                     <input type="hidden" id="imageId" name="imageId" form="editForm" value="" readonly>
                 </fieldset>
                 <fieldset class="formControls" id="editControls">
-                    <button type="button" id="cancelImage" class="formBtn">Cancel</button>
-                    <button type="submit" id="saveImage" class="formBtn">Save</button>
+                    <button type="button" id="deleteImage" class="formBtn" form="editForm">Delete</button>
+                    <button type="button" id="cancelImage" class="formBtn cancelBtn" form="editForm">Cancel</button>
+                    <button type="submit" id="saveImage" class="formBtn saveBtn" form="editForm">Save</button>
                 </fieldset>
             </form>
         </section>
     </div>
 
-    <form id="uploadForm" name="uploadForm">
-        <div class="uploads"></div>
-        <?php // one fieldset per image ?>
-        <fieldset class="formControls" id="uploadControls"></fieldset>
-    </form>
+    <div class="modal" id="uploadModal">
+        <section id="uploadSection">
+            <form id="uploadForm" name="uploadForm" enctype="multipart/form-data">
+                <?php // one fieldset per image ?>
+                <fieldset class="formControls" id="uploadControls">
+                    <button type="button" id="cancelUpload" class="formBtn cancelBtn" form="uploadForm">Cancel</button>
+                    <button type="submit" id="uploadImages" class="formBtn saveBtn" form="uploadForm">Upload</button>
+                </fieldset>
+            </form>
+        </section>
+    </div>
 
 </main>
 

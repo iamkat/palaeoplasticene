@@ -1,29 +1,17 @@
 <?php 
 // Header
-require 'header.php'; 
+require 'header.php';
 ?>
 
 <main>
 
 <?php
-try {
-  // Database Login
-  require 'queries/credentials.php';
 
-  // Query
-  $categoriesQuery = $dbConnection->prepare('SELECT ppc_category FROM ppc_categories');
-  $categoriesQuery->execute();
-  $categoriesData = $categoriesQuery->fetchAll(PDO::FETCH_COLUMN);
-
-  $dbConnection = null;
-
-  foreach ($categoriesData as $value) {    
-    $_SESSION['categories'][categorySlug($value)] = $value;
-  }
+// Query for categories with a custom function (infrastructure.php) and store each category inside a session cookie
+foreach (queryCategories() as $value) {    
+  $_SESSION['categories'][categorySlug($value)] = $value;
 }
-catch(PDOException $error) {
-  $categoriesData = $error->getMessage();
-}
+
 ?>
 
 <nav id="frontMenu">

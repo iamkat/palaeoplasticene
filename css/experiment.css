@@ -45,33 +45,6 @@
     margin: 0 auto;
 }
 
-#cancelExperiment, #cancelImage {
-    background-color: white;
-    background-color: var(--titleColor);
-    color: #666666;
-    color: var(--mainTextColor);
-    border: 1px solid #666666;
-    border: var(--inputBorder);
-}
-
-#cancelExperiment:hover, #cancelImage:hover {
-    background-color: #666666;
-    background-color: var(--mainTextColor);
-    color: white;
-    color: var(--titleColor);
-    border: 1px solid #666666;
-    border: var(--controlBorder);
-}
-
-#cancelExperiment:active, #cancelImage:active {
-    background-color: white;
-    background-color: var(--titleColor);
-    color: #666666;
-    color: var(--mainTextColor);
-    border: 1px solid #666666;
-    border: var(--inputBorder);
-}
-
 .imageGallery {
     display: flex;
     flex-flow: column nowrap;
@@ -108,7 +81,7 @@
 }
 
 /* EDIT */
-#editModal {
+.modal {
     width: 100vw;
     height: 100vh;
     background-color: rgba(102, 102, 102, 0.9);
@@ -142,6 +115,10 @@
     justify-content: flex-start;
 }
 
+.imagePreview {
+    cursor: pointer;
+}
+
 #editImage {
     width: 100%;
     border: 3px solid white;
@@ -154,5 +131,54 @@
 
 #editControls {
     flex: 1 0 100%;
+    justify-content: flex-end;
+}
+
+/* Upload */
+#fileUpload {
+    display: none;
+}
+
+#uploadSection {
+    overflow-y: auto;
+}
+
+.uplFileInput {
+    visibility: hidden;
+    height: 1px;
+}
+
+#uploadform {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+}
+
+.imageFieldset {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    box-shadow: 2px 2px 4px #666666;;
+    box-shadow: var(--mainBoxShadow);
+    border-radius: 1rem;
+    padding: clamp(0.5rem, 2vh, 1rem);
+    margin: 0 0 1rem;
+}
+
+.uploadImage {
+    max-width: 300px;
+    max-height: 200px;
+}
+
+.uploadImageControls {
+    flex: 1 0 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    margin-top: clamp(0.25rem, 1vh, 0.5rem);
+    padding-right: 0.4rem;
+}
+
+#uploadControls {
     justify-content: flex-end;
 }

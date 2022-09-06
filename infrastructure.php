@@ -37,5 +37,27 @@ function ppcStyle($styleName) {
 // Scripts for different sites
 function ppcScript($scriptName) {
     printf('<script src="./js/%s.js" type="text/javascript"></script>', $scriptName);
+}
+
+// Function to query for existing categories in the database
+function queryCategories() {
+    $sql = "SELECT ppc_category FROM ppc_categories";
+  
+    try {
+      // Database Login
+      require 'queries/credentials.php';
+    
+      // Query
+      $categoriesQuery = $dbConnection->prepare($sql);
+      $categoriesQuery->execute();
+      $categoriesData = $categoriesQuery->fetchAll(PDO::FETCH_COLUMN);
+    
+      $dbConnection = null;
+    }
+    catch(PDOException $error) {
+      $categoriesData = $error->getMessage();
+    }
+  
+    return $categoriesData;
   }
 ?>

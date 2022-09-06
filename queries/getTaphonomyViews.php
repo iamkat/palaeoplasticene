@@ -23,6 +23,10 @@ function queryViews() {
 $views = queryViews();
 
 if (!empty($views)) {
-    $_SESSION['views'] = $views;
+    if ($_POST['js']) {
+        exit(json_encode($views));
+    } else {
+        $_SESSION['views'] = $views;
+    }
 }
 ?>

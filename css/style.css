@@ -2,6 +2,7 @@
 :root {
     --mainBgColor: black;
     --mainTextColor: #666666;
+    --plasticColor: deeppink;
     --titleColor: white;
     --mainContentBg: rgba(255, 255, 255, 0.8);
     --mainTextFont: 'Alegreya Sans', sans-serif;
@@ -10,6 +11,8 @@
     --mainBorder: 3px solid white;
     --inputBorder: 1px solid var(--mainTextColor);
     --controlBorder: 1px solid var(--titleColor);
+    --plasticBorder: 1px solid var(--plasticColor);
+    --mainBoxShadow: 2px 2px 4px #666666;
 }
 
 /* GENERAL SETTINGS */
@@ -17,6 +20,19 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    scrollbar-color: #666666;
+    scrollbar-color: var(--mainTextColor);
+    scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+    width: 0.3rem;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+*::-webkit-scrollbar-thumb {
+    border-radius: 0.15rem;
+    background-color: #666666;
 }
 
 body {
@@ -187,7 +203,7 @@ textarea {
 }
 
 /* BUTTONS */
-button {
+button, .formBtn {
     height: 2rem;
     font-family: var(--mainTextFont);
     font-size: var(--mainFSize);
@@ -205,7 +221,7 @@ button {
     white-space: nowrap;
 }
 
-button:hover {
+button:hover, .formBtn:hover {
     background-color: white;
     background-color: var(--titleColor);
     color: #666666;
@@ -214,11 +230,72 @@ button:hover {
     border: var(--inputBorder);
 }
 
-button:active {
+button:active, .formBtn:active {
     background-color: #666666;
     background-color: var(--mainTextColor);
     color: white;
     color: var(--titleColor);
     border: 1px solid #666666;
+    border: var(--controlBorder);
+}
+
+.formBtn {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.cancelBtn {
+    background-color: white;
+    background-color: var(--titleColor);
+    color: #666666;
+    color: var(--mainTextColor);
+    border: 1px solid #666666;
+    border: var(--inputBorder);
+}
+
+.cancelBtn:hover {
+    background-color: #666666;
+    background-color: var(--mainTextColor);
+    color: white;
+    color: var(--titleColor);
+    border: 1px solid #666666;
+    border: var(--controlBorder);
+}
+
+.cancelBtn:active {
+    background-color: white;
+    background-color: var(--titleColor);
+    color: #666666;
+    color: var(--mainTextColor);
+    border: 1px solid #666666;
+    border: var(--inputBorder);
+}
+
+.saveBtn {
+    background-color: deeppink;
+    background-color: var(--plasticColor);
+    color: white;
+    color: var(--titleColor);
+    border: 1px solid white;
+    border: var(--controlBorder);
+}
+
+.saveBtn:hover {
+    background-color: white;
+    background-color: var(--titleColor);
+    color: deeppink;
+    color: var(--plasticColor);
+    border: 1px solid deeppink;
+    border: var(--plasticBorder);
+}
+
+.saveBtn:active {
+    background-color: deeppink;
+    background-color: var(--plasticColor);
+    color: white;
+    color: var(--titleColor);
+    border: 1px solid white;
     border: var(--controlBorder);
 }

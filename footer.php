@@ -17,6 +17,8 @@
 ?>
 
 <script src="./js/create.js" type="text/javascript"></script>
+<script src="./js/header.js" type="text/javascript"></script>
+<script src="./js/footer.js" type="text/javascript"></script>
 
 <?php
     switch ($_SERVER["REQUEST_URI"]) {
@@ -44,13 +46,10 @@
             ppcScript('parsedown');
             break;
         case '/experiment-taphonomy.php':
-            ppcScript('experiment');
+            ppcScript('taphonomy');
             break;
     }
 ?>
-
-<script src="./js/header.js" type="text/javascript"></script>
-<script src="./js/footer.js" type="text/javascript"></script>
 
 </footer>
 </body>
