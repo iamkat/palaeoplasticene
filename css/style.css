@@ -273,7 +273,12 @@ button:active, .formBtn:active {
     border: var(--inputBorder);
 }
 
-.saveBtn {
+.saveBtn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.saveBtn, .saveBtn:disabled, .saveBtn:disabled:hover {
     background-color: deeppink;
     background-color: var(--plasticColor);
     color: white;

@@ -144,20 +144,20 @@ include 'queries/getLicenses.php';
     <div class="modal" id="editModal">
         <section id="editSection">
             <form id="editForm" name="editForm" enctype="multipart/form-data">
-                <fieldset class="imageData">
+                <fieldset class="imageData" form="editForm">
                     <div class="imageInput">
                         <label for="imageFile">
                             <figure class="imagePreview">
                                 <img src="" id="editImage" alt=""></label>
                                 <figcaption class="imageCaption"></figcaption> 
                             </figure>
-                        <input type="file" id="imageFile" name="imageFile" form="editForm">
+                        <input type="file" id="imageFile" name="imageFile" class="formInput" data-input-name="Filename" form="editForm">
                     </div>
                 </fieldset>
-                <fieldset class="imageData">
+                <fieldset class="imageData" form="editForm">
                     <div class="imageInput">
                         <label for="imageView">View</label>
-                        <select id="imageView" name="imageView" form="editForm" required>
+                        <select id="imageView" name="imageView" class="formInput" data-input-name="View" form="editForm" required>
                             <?php 
                             foreach ($_SESSION['views'] as $value) {
                                 ?>
@@ -169,26 +169,26 @@ include 'queries/getLicenses.php';
                     </div>
                     <div class="imageInput">
                         <label for="imageDate">Date</label>
-                        <input type="datetime-local" id="imageDate" name="imageDate" form="editForm" value="" required>
+                        <input type="datetime-local" id="imageDate" name="imageDate" class="formInput" data-input-name="Date" form="editForm" value="" required>
                     </div>
                     <div class="imageInput">
                         <label for="uploadDate">Upload date</label>
                         <input type="datetime-local" id="uploadDate" name="uploadDate" form="editForm" value="" readonly>
                     </div>
                 </fieldset>
-                <fieldset class="imageData">
+                <fieldset class="imageData" form="editForm">
                     <div class="imageInput">
                         <label for="imageConditions">Conditions</label>
-                        <textarea id="imageConditions" name="imageConditions" form="editForm"></textarea>
+                        <textarea id="imageConditions" name="imageConditions" class="formInput" data-input-name="Conditions" form="editForm" value=""></textarea>
                     </div>
                     <div class="imageInput">
                         <label for="imageNotes">Notes</label>
-                        <textarea id="imageNotes" name="imageNotes" form="editForm"></textarea>
+                        <textarea id="imageNotes" name="imageNotes" class="formInput" data-input-name="Notes" form="editForm" value=""></textarea>
                     </div>
                         
                     <input type="hidden" id="imageId" name="imageId" form="editForm" value="" readonly>
                 </fieldset>
-                <fieldset class="formControls" id="editControls">
+                <fieldset class="formControls" id="editControls" form="editForm">
                     <button type="button" id="deleteImage" class="formBtn" form="editForm">Delete</button>
                     <button type="button" id="cancelImage" class="formBtn cancelBtn" form="editForm">Cancel</button>
                     <button type="submit" id="saveImage" class="formBtn saveBtn" form="editForm">Save</button>
@@ -201,7 +201,7 @@ include 'queries/getLicenses.php';
         <section id="uploadSection">
             <form id="uploadForm" name="uploadForm" enctype="multipart/form-data">
                 <?php // one fieldset per image ?>
-                <fieldset class="formControls" id="uploadControls">
+                <fieldset class="formControls" id="uploadControls" form="uploadForm">
                     <button type="button" id="cancelUpload" class="formBtn cancelBtn" form="uploadForm">Cancel</button>
                     <button type="submit" id="uploadImages" class="formBtn saveBtn" form="uploadForm">Upload</button>
                 </fieldset>

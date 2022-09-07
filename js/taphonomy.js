@@ -5,6 +5,7 @@
 
 let imageCheckboxes;
 let imageData;
+let imageEdits = {};
 
 // ------------------------------------------------------------------
 // FUNCTIONS
@@ -57,7 +58,8 @@ async function getViews() {
 }
 
 function formatDate(date) {
-    const newDate = date.substring(0,16).replace(/\s/, 'T');
+    let newDate = new Date(date);
+    newDate = newDate.toISOString().substring(0,16);
     return newDate;
 }
 
@@ -68,6 +70,44 @@ async function cancelExperiment() {
         window.location.href = './overview.php';
     } else {
         alert('Something went awefully wrong. We recommend you to logout, reload the page and try again.');
+    }
+}
+
+function registerImageEdits(inputName, inputValue) {
+    imageEdits[inputName] = inputValue;
+    // DEBUG
+    console.log(imageEdits);
+}
+
+function validateTextInputs(inputText) {
+    let cleanText = inputText.trim();
+    cleanText = cleanText.replace(/[^0-9a-zA-Z\n\s\r.!?()-]/g, '');
+    cleanText = cleanText.replace(/\n/g, ' ');
+    cleanText = cleanText.replace(/\r/g, '');
+    cleanText = cleanText.replace(/\s{2,}/g, ' ');
+    cleanText = cleanText.replace(/\s(?=[.!?])/g, '');
+    return cleanText;
+}
+
+function validateDateInputs(inputValue) {
+    let newDate = new Date(inputValue);
+    return Date.parse(newDate);
+}
+
+async function saveImageEdits(edits, imgId) {
+    if (Object.keys(edits).length == 0) {
+        return 'Nothing to update.';
+    } else {
+        const helperForm = new FormData();
+        helperForm.append('edits', JSON.stringify(edits));
+        helperForm.append('imageId', imgId);
+
+        const request = await fetch('./queries/editTaphonomyImage.php', {
+            method: 'POST',
+            body: helperForm,
+        });
+
+        return await request.text();
     }
 }
 
@@ -82,15 +122,39 @@ document.addEventListener('DOMContentLoaded', function() {
     const editForm = document.getElementById('editForm');
     const uploadForm = document.getElementById('uploadForm');
     const viewFilter = document.getElementById('viewFilter');
+    const imageId = document.getElementById('imageId');
     const experimentCancelBtn = document.getElementById('cancelExperiment');
     const uploadImages = document.getElementById('fileUpload');
     const editImage = document.getElementById('editImage');
     const uploadCancelBtn = document.getElementById('cancelUpload');
     const imageCancelBtn = document.getElementById('cancelImage');
+    const imageSaveBtn = document.getElementById('saveImage');
 
-    // Hide the edit form and the upload form
+    // Functions
+    function cancelEdit() {
+        editModal.style.display = 'none';
+
+        if (Object.keys(imageEdits).length != 0) {
+            for (let entry in imageEdits) {
+                delete imageEdits[entry];
+            }
+        }
+        
+        imageSaveBtn.disabled = true;
+        
+        editImage.src = '';
+        editForm.reset();
+    }
+
+    // Work
+    // Hide the modals for the edit form and the upload form and reset initially
     editModal.style.display = 'none';
+    editForm.reset();
     uploadModal.style.display = 'none';
+    uploadForm.reset();
+
+    // Style the save button of the edit form
+    imageSaveBtn.disabled = true;
     
     // Activate the Filter
     viewFilter.addEventListener('change', function() {
@@ -127,6 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fieldset.remove();
 
                 let fieldsets = document.querySelectorAll('.imageFieldset');
+                // DEBUG
                 console.log(fieldsets);
                 if (fieldsets.length == 0) {
                     uploadModal.style.display = 'none';
@@ -137,6 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         uploadModal.style.display = 'flex';
         
+        // DEBUG
         console.log(this.files);
     }, false);
 
@@ -151,10 +217,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }, false);
 
     // Cancel image edit
-    imageCancelBtn.addEventListener('click', function() {
-        editModal.style.display = 'none';
-        editImage.src = '';
-        editForm.reset();
+    imageCancelBtn.addEventListener('click', cancelEdit, false);
+
+    // Save image edit
+    imageSaveBtn.addEventListener('click', async function(event) {
+        event.preventDefault();
+        
+        const response = await saveImageEdits(imageEdits, imageId.value);        
+        alert(response);
+        
+        cancelEdit();
+        window.location.reload();
     }, false);
 }, false);
 
@@ -166,6 +239,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     const imageContainer = document.querySelector('.images');
     
     const response = await getImages();
+    
+    // DEBUG
+    console.log(response);
 
     if (response) {
         imageData = response;
@@ -184,7 +260,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     }
 
-    // Add reactivity after finishing the population
+    // Add editing after finishing the population
     imageCheckboxes = document.querySelectorAll('.imageCheckbox');
     imageCheckboxes.forEach(element => {
         element.addEventListener('click', function() {
@@ -192,6 +268,8 @@ document.addEventListener('DOMContentLoaded', async function() {
             editForm.reset();
 
             const editImage = document.getElementById('editImage');
+            const formInputs = document.querySelectorAll('.formInput');
+            const imageFile = document.getElementById('imageFile');
             const imageCaption = document.querySelector('#editForm figcaption');
             const imageDate = document.getElementById('imageDate');
             const imageConditions = document.getElementById('imageConditions');
@@ -200,21 +278,74 @@ document.addEventListener('DOMContentLoaded', async function() {
             const uploadDate = document.getElementById('uploadDate');
             const imageId = document.getElementById('imageId');
             const imageKey = element.getAttribute('data-key');
+            const imageSaveBtn = document.getElementById('saveImage');
+            const dataSet = response[imageKey];
 
+            // Work
+            // Set the image attributes
             editImage.src = './uploads/' + response.user + '/taphonomy/' + response.experimentId + '/' + element.value;
             imageCaption.innerHTML = element.value;
+            
+            // Reactivity for the file upload if a new image is selected
+            imageFile.addEventListener('change', function() {
+                editImage.src = URL.createObjectURL(this.files[0]);
+                imageCaption.innerHTML = this.files[0].name;
+            }, false);
+
+            // Set the date value
             imageDate.value = formatDate(response[imageKey].Date);
-            imageConditions.innerHTML = response[imageKey].Conditions;
+
+            // Set the conditions value
+            imageConditions.value = response[imageKey].Conditions;
+
+            // Set the view value
             imageView.forEach(option => {
                 if (option.value === response[imageKey].View) {
                     option.selected = true;
                 }
             });
-            imageNotes.innerHTML = response[imageKey].Notes;
+
+            // Set the notes value
+            imageNotes.value = response[imageKey].Notes;
+
+            // Set the upload date value
             uploadDate.value = formatDate(response[imageKey].Upload);
+
+            // Set the id value for the hidden input
             imageId.value = element.id;
 
+            // Show the modal
             editModal.style.display = 'flex';
+
+            // Reactivity for the edit form inputs
+            formInputs.forEach(element => {
+                element.addEventListener('change', function(event) {
+                    let inputName = this.getAttribute('data-input-name');
+
+                    if (this.value !== dataSet[inputName]) {
+                        imageSaveBtn.disabled = false;
+
+                        if (inputName === 'Date') {
+                            registerImageEdits(inputName, validateDateInputs(this.value));
+                        } else if (inputName === 'Filename') {
+                            
+                        } else {
+                            registerImageEdits(inputName, validateTextInputs(this.value));
+                        }
+                    } else {
+                        if (imageEdits[inputName]) {
+                            delete imageEdits[inputName];
+
+                            if (Object.keys(imageEdits).length == 0) {
+                                imageSaveBtn.disabled = true;
+                            }
+                        }
+                    }
+
+                    // Some bugfix because of multiple event firing after canceling an image edit and editing images afterwards
+                    event.stopImmediatePropagation();
+                }, false);
+            });
             
         }, false);
     });
