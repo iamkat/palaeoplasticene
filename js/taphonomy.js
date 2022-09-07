@@ -81,7 +81,7 @@ function registerImageEdits(inputName, inputValue) {
 
 function validateTextInputs(inputText) {
     let cleanText = inputText.trim();
-    cleanText = cleanText.replace(/[^0-9a-zA-Z\n\s\r.!?()-]/g, '');
+    cleanText = cleanText.replace(/[^0-9a-zA-Z\n\s\r.!?_()-]/g, '');
     cleanText = cleanText.replace(/\n/g, ' ');
     cleanText = cleanText.replace(/\r/g, '');
     cleanText = cleanText.replace(/\s{2,}/g, ' ');
@@ -322,13 +322,13 @@ document.addEventListener('DOMContentLoaded', async function() {
                 element.addEventListener('change', function(event) {
                     let inputName = this.getAttribute('data-input-name');
 
-                    if (this.value !== dataSet[inputName]) {
+                    if (this.files[0].name !== dataSet[inputName] || this.value !== dataSet[inputName]) {
                         imageSaveBtn.disabled = false;
 
-                        if (inputName === 'Date') {
+                        if (inputName === 'Filename') {
+                            registerImageEdits(inputName, validateTextInputs(this.files[0].name));
+                        } else if (inputName === 'Date') {
                             registerImageEdits(inputName, validateDateInputs(this.value));
-                        } else if (inputName === 'Filename') {
-                            
                         } else {
                             registerImageEdits(inputName, validateTextInputs(this.value));
                         }
