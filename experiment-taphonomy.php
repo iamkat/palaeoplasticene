@@ -84,7 +84,7 @@ include 'queries/getLicenses.php';
                 <?php
                 // The session cookie with the array of queried experiment images is set during the experiment query (getTaphonomyImages.php)
                 if ($_SESSION['taphonomyImages']) {
-                    // Stats calculation
+                    // Preaparation for date calculations
                     foreach ($_SESSION['taphonomyImages'] as $image) {
                         $imageDates[] = $image['Date'];    
                     }
