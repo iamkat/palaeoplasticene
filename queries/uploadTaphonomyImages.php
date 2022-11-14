@@ -3,6 +3,7 @@ session_start();
 
 // Set up variables
 $user = $_SESSION['user'];
+$category = $_SESSION['experimentCategory'];
 $experimentId = $_SESSION['experimentId'];
 $errors = [];
 $imgData = array(
@@ -16,8 +17,8 @@ $imgData = array(
 );
 
 // Upload directories
-$directory = printf('../uploads/%s/Taphonomy/%s', $user, $experimentId);
-$thumbDirectory = printf('%s/thumbs', $directory);
+$directory = sprintf('../uploads/%s/%s/%s', $user, $category, $experimentId);
+$thumbDirectory = sprintf('%s/thumbs', $directory);
 
 // -----------------------------------------------
 // WORK
@@ -65,16 +66,16 @@ for ($i = 1; $i <= $imgCount; $i++) {
 
         // Check if file exists in database
         if (checkFileExists($imgFile['name'])) {
-            $imgFile['name'] = printf('%s_%s', date('Ymd_His'), $imgFile['name']);
+            $imgFile['name'] = sprintf('%s_%s', date('Ymd_His'), $imgFile['name']);
         }
 
         // Upload file with error fallback
-        if (!move_uploaded_file($imgFile['tmp_name'], printf('%s/%s', $directory, $imgFile['name']))) {
+        if (!move_uploaded_file($imgFile['tmp_name'], sprintf('%s/%s', $directory, $imgFile['name']))) {
             $errors[] = 'Failed to upload the following file: ' . $imgFile['name'] . '. Please try again or contact us for further questions.';
         }
 
         // Create and upload the thumbnail
-        if (!createThumbnail(printf('%s/%s', $directory, $imgFile['name']), printf('%s/%s', $thumbDirectory, $imgFile['name']))) {
+        if (!createThumbnail(sprintf('%s/%s', $directory, $imgFile['name']), sprintf('%s/%s', $thumbDirectory, $imgFile['name']))) {
             $errors[] = 'Failed to create and upload a thumbnail for the following image file: ' . $imgFile['name'] . '. Please try again or contact us for further questions.';
         }
 

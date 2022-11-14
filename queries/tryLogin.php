@@ -55,6 +55,6 @@ if (empty($accountData)) {
    $_SESSION['token'] = password_hash($userName, PASSWORD_DEFAULT);
 }
 
-// Output of JSON encoded Response
+// Output of response
 print($errorMsg);
 ?>

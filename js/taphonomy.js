@@ -111,12 +111,14 @@ async function saveImageEdits(edits, imgId) {
     }
 }
 
-async function uploadImages(uploadForm, imageCount) {
-    uploadForm.append('imageCount', imageCount);
+async function uploadImages(formdata, imageCount) {
+    const helperForm = new FormData(formdata);
+    helperForm.append('imageCount', imageCount);
+    console.log(helperForm);
     
     const request = await fetch('./queries/uploadTaphonomyImages.php', {
         method: 'POST',
-        body: uploadForm,
+        body: helperForm,
     });
 
     return await request.text();
@@ -135,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const viewFilter = document.getElementById('viewFilter');
     const imageId = document.getElementById('imageId');
     const experimentCancelBtn = document.getElementById('cancelExperiment');
-    const uploadImages = document.getElementById('fileUpload');
+    const uploadFile = document.getElementById('fileUpload');
     const editImage = document.getElementById('editImage');
     const uploadCancelBtn = document.getElementById('cancelUpload');
     const uploadBtn = document.getElementById('uploadImages');
@@ -177,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
     experimentCancelBtn.addEventListener('click', cancelExperiment, false);
 
     // Upload images button functionality
-    uploadImages.addEventListener('change', async function() {
+    uploadFile.addEventListener('change', async function() {
         let uploadFiles = this.files;
         let imageViews = await getViews();
 
@@ -237,7 +239,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Upload Images
     uploadBtn.addEventListener('click', async function() {
-
+        const imageFieldsets = document.querySelectorAll('.imageFieldset');
+        console.log(imageFieldsets.length);
+        const response = await uploadImages(uploadForm, imageFieldsets.length);
+        console.log(response);
     }, false);
 
     // Cancel image edit
