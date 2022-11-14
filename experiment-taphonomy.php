@@ -84,7 +84,7 @@ include 'queries/getLicenses.php';
                 <?php
                 // The session cookie with the array of queried experiment images is set during the experiment query (getTaphonomyImages.php)
                 if ($_SESSION['taphonomyImages']) {
-                    // Preaparation for date calculations
+                    // Preparation for date calculations
                     foreach ($_SESSION['taphonomyImages'] as $image) {
                         $imageDates[] = $image['Date'];    
                     }
@@ -108,7 +108,7 @@ include 'queries/getLicenses.php';
 
             <fieldset class="formControls" id="experimentControls">
                 <label for="fileUpload" class="formBtn">Upload Images</label>
-                <input type="file" id="fileUpload" name="fileUpload" accept="image/jpeg, image/png" multiple form="uploadForm">
+                <input type="file" id="fileUpload" name="fileUpload[]" accept="image/jpeg, image/png" multiple form="uploadForm">
                 <button type="button" id="cancelExperiment" class="formBtn cancelBtn">Cancel</button>
                 <button type="submit" id="saveExperiment" class="formBtn saveBtn" form="dataForm">Save</button>
             </fieldset>
@@ -126,7 +126,7 @@ include 'queries/getLicenses.php';
                 <select id="viewFilter" name="viewFilter">
                     <option value="All">All</option>
                     <?php
-                    // The session cookie with the array of experiment views is set during after query of existing views (getTaphonomyViews.php)
+                    // The session cookie with the array of experiment views is set during the query for existing views (getTaphonomyViews.php)
                     foreach ($_SESSION['views'] as $value) {
                         ?>
                         <option value="<?php print($value); ?>"><?php print($value); ?></option>

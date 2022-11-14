@@ -111,6 +111,17 @@ async function saveImageEdits(edits, imgId) {
     }
 }
 
+async function uploadImages(uploadForm, imageCount) {
+    uploadForm.append('imageCount', imageCount);
+    
+    const request = await fetch('./queries/uploadTaphonomyImages.php', {
+        method: 'POST',
+        body: uploadForm,
+    });
+
+    return await request.text();
+}
+
 // ------------------------------------------------------------------
 // WORK
 
@@ -127,8 +138,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const uploadImages = document.getElementById('fileUpload');
     const editImage = document.getElementById('editImage');
     const uploadCancelBtn = document.getElementById('cancelUpload');
+    const uploadBtn = document.getElementById('uploadImages');
     const imageCancelBtn = document.getElementById('cancelImage');
     const imageSaveBtn = document.getElementById('saveImage');
+    const maxFileSize = 9216000;
 
     // Functions
     function cancelEdit() {
@@ -146,7 +159,6 @@ document.addEventListener('DOMContentLoaded', function() {
         editForm.reset();
     }
 
-    // Work
     // Hide the modals for the edit form and the upload form and reset initially
     editModal.style.display = 'none';
     editForm.reset();
@@ -164,17 +176,23 @@ document.addEventListener('DOMContentLoaded', function() {
     // Cancel experiment
     experimentCancelBtn.addEventListener('click', cancelExperiment, false);
 
-    // Upload button functionality
+    // Upload images button functionality
     uploadImages.addEventListener('change', async function() {
         let uploadFiles = this.files;
         let imageViews = await getViews();
 
+        // Create the fieldsets for the upload form
         for (let i = 0; i < uploadFiles.length; i++) {
-            uploadForm.prepend(createUploadFieldset(i + 1, URL.createObjectURL(uploadFiles[i]), imageViews));
+            if (uploadFiles[i].size > maxFileSize) {
+                alert(`Sorry the image file ${uploadFiles[i].name} exceeds the maximum file size and will not be uploaded. Please resize this image and try again.`);
+            } else {
+                uploadForm.prepend(createUploadFieldset(i + 1, URL.createObjectURL(uploadFiles[i]), imageViews));
+            }
         }
 
         let fileInputs = document.querySelectorAll('.uplFileInput');
 
+        // Reactive preview images
         fileInputs.forEach(input => {
             input.addEventListener('change', function() {
                 let labelFigure = this.previousElementSibling.firstChild;
@@ -182,6 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }, false);
         });
 
+        // Reactive reject buttons
         let rejectBtns = document.querySelectorAll('.rejectImage');
 
         rejectBtns.forEach(element => {
@@ -214,6 +233,11 @@ document.addEventListener('DOMContentLoaded', function() {
         imageFieldsets.forEach(element => {
             element.remove();
         });
+    }, false);
+
+    // Upload Images
+    uploadBtn.addEventListener('click', async function() {
+
     }, false);
 
     // Cancel image edit

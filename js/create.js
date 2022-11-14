@@ -180,6 +180,8 @@ function createUploadFieldset(imgId, imgSrc, views) {
     fileInput.name = 'imageFile' + imgId;
     fileInput.classList.add('uplFileInput');
     fileInput.required = true;
+    fileInput.accept = 'image/jpeg,image/png';
+    fileInput.capture = 'environment';
     fileInput.form = 'uploadForm';
 
     const viewLabel = createLabel('imageView' + imgId, 'View');
