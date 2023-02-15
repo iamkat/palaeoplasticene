@@ -1,12 +1,10 @@
 <?php
-session_start();
-// -----------------------------------------------
 
 function queryTaphonomyImages($experimentId) {
     $sql = "SELECT * FROM ppc_taphonomy_images WHERE ppc_exp_id = $experimentId";
 
     try {
-        require 'credentials.php';
+        require 'data/credentials.php';
     
         $queryTaphonomyImages = $dbConnection->prepare($sql);
         $queryTaphonomyImages->execute();
@@ -17,15 +15,19 @@ function queryTaphonomyImages($experimentId) {
         exit($error->getMessage());
     } 
 
-    return $taphonomyImagesData;
+    if (empty($taphonomyImagesData)) {
+        return;
+    } else {
+        return $taphonomyImagesData;
+    }
 }
 
-if ($_SESSION['experimentId']) {
+if (!empty($_SESSION['experimentId'])) {
     $taphonomyImages = queryTaphonomyImages($_SESSION['experimentId']);
 }
 
 if (!empty($taphonomyImages)) {
-    if ($_POST['js']) {
+    if (!empty($_POST['js'])) {
         $taphonomyImages['experimentId'] = $_SESSION['experimentId'];
         $taphonomyImages['user'] = $_SESSION['user'];
         exit(json_encode($taphonomyImages));

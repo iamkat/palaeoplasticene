@@ -11,10 +11,10 @@ const newBtns = document.querySelectorAll('.newBtn');
 
 async function editExperiment(category, id) {
     const helperForm = new FormData();
-    helperForm.append('category',category);
+    helperForm.append('category', category);
     helperForm.append('experimentId', id);
 
-    const request = await fetch('./queries/getExperimentData.php', {
+    const request = await fetch('./data/queries/getExperimentData.php', {
         method: 'POST',
         body: helperForm,
     });
@@ -26,7 +26,7 @@ async function newExperiment(category) {
     const helperForm = new FormData();
     helperForm.append('category', category);
 
-    const request = await fetch('./queries/setupNewExperiment.php', {
+    const request = await fetch('./data/queries/setupNewExperiment.php', {
         method: 'POST',
         body: helperForm,
     });

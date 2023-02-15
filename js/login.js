@@ -23,7 +23,7 @@ const errorPassword = 'Passwords cannot be empty and have to be composed out of 
 // Login Function
 async function ppcLogin(formData) {
     try {
-        const request = await fetch('./queries/tryLogin.php', {
+        const request = await fetch('./data/queries/tryLogin.php', {
             method: 'POST',
             body: new FormData(formData),
         });
@@ -34,13 +34,34 @@ async function ppcLogin(formData) {
 
 }
 
+function validateInput(input) {
+    if (input.checkValidity()) {
+        input.style.borderColor = '';
+        loginError.innerHTML = '';
+    } else {
+        input.style.borderColor = 'red';
+        loginError.innerHTML = input.validationMessage;
+    }
+}
+
 // -----------------------------------------------------------------
 // EVENT LISTENERS
+
+// Create user input feedback
+if (userName && passWord) {
+    userName.addEventListener('change', function(event) {
+        validateInput(event.target);
+    }, false);
+
+    passWord.addEventListener('change', function(event) {
+        validateInput(event.target);
+    }, false);
+}
 
 if (loginSubmit && userName && passWord) {
     loginSubmit.addEventListener('click', async function(event) {
 
-        // Validatoin checks
+        // Again validation checks
         if (!userName.checkValidity()) {
             return loginError.innerHTML = userName.validationMessage;
         } else if (!passWord.checkValidity()) {

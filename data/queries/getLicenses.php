@@ -1,12 +1,10 @@
 <?php
-session_start();
-// -----------------------------------------------
 
 function queryLicenses() {
     $sql = "SELECT license FROM ppc_licenses";
 
     try {
-        require 'credentials.php';
+        require 'data/credentials.php';
     
         $queryLicense = $dbConnection->prepare($sql);
         $queryLicense->execute();
@@ -17,7 +15,11 @@ function queryLicenses() {
         exit($error->getMessage());
     } 
 
-    return $licensesData;
+    if (empty($licensesData)) {
+        return;
+    } else {
+        return $licensesData;
+    }
 }
 
 $licenses = queryLicenses();

@@ -1,4 +1,10 @@
 <?php
+// Continue the Session
+session_start();
+
+// Load infrastructure
+require 'infrastructure.php';
+
 // Page Header
 require 'header.php';
 
@@ -6,7 +12,7 @@ require 'header.php';
 checkLogin();
 
 // Clean up
-require 'queries/clearCache.php';
+include 'data/queries/clearCache.php';
 
 // Array for errors
 $errors = array();
@@ -18,7 +24,7 @@ function queryExperiments($user, $category) {
     $sql = "SELECT * FROM $experimentsTable WHERE ppc_usr_id = $user";
 
     try {
-        require 'queries/credentials.php';
+        require 'data/credentials.php';
 
         $experimentsQuery = $dbConnection->prepare($sql);
         $experimentsQuery->execute();
@@ -29,13 +35,17 @@ function queryExperiments($user, $category) {
         $errors[] = $error->getMessage();
     }
 
-    return $data;
+    if (empty($data)) {
+        return;
+    } else {
+        return $data;
+    }
 }
 
 // Get user ID from username stored in the session global during login
 try {
     // Database Login
-    require 'queries/credentials.php';
+    require 'data/credentials.php';
 
     // Query
     $userIdQuery = $dbConnection->prepare('SELECT ppc_user_id FROM ppc_users WHERE ppc_username = :username');
@@ -53,7 +63,7 @@ try {
 // Check if categories have already been queried
 if (!$_SESSION['categories']) {
     try {
-        require 'queries/credentials.php';
+        require 'data/credentials.php';
       
         $categoriesQuery = $dbConnection->prepare('SELECT ppc_category FROM ppc_categories');
         $categoriesQuery->execute();
@@ -85,25 +95,30 @@ if (!$_SESSION['categories']) {
         
         <?php
         $experiments = queryExperiments($_SESSION['userID'], $slug);
-        foreach ($experiments as $exp) {
-            ?>
-            <div class="overviewExperiment">
-                <h3><?php print($exp['Name']); ?></h3>
-                <?php
-                    foreach ($exp as $key => $value) {
-                        if ($key == 'ppc_exp_id' || $key == 'Name' || $key == 'ppc_usr_id') {
-                            continue;
-                        }
-                        ?>
-                        <p class="expMeta"><strong><?php print($key); ?>:</strong> <?php print($value); ?></p>
-                        <?php
-                    }
+
+        if (!empty($experiments)) {
+
+            foreach ($experiments as $exp) {
                 ?>
-                <div>
-                    <button type="button" class="editBtn" data-category="<?php print($slug); ?>" data-experiment-id="<?php print($exp['ppc_exp_id']) ?>">Edit</button>
+                <div class="overviewExperiment">
+                    <h3><?php print($exp['Name']); ?></h3>
+                    <?php
+                        foreach ($exp as $key => $value) {
+                            if ($key == 'ppc_exp_id' || $key == 'Name' || $key == 'ppc_usr_id') {
+                                continue;
+                            }
+                            ?>
+                            <p class="expMeta"><strong><?php print($key); ?>:</strong> <?php print($value); ?></p>
+                            <?php
+                        }
+                    ?>
+                    <div>
+                        <button type="button" class="editBtn" data-category="<?php print($slug); ?>" data-experiment-id="<?php print($exp['ppc_exp_id']) ?>">Edit</button>
+                    </div>
                 </div>
-            </div>
-            <?php
+                <?php
+            }
+
         }
         ?>
         <div class="newExperiment">

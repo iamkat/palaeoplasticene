@@ -11,7 +11,7 @@ let imageEdits = {};
 // FUNCTIONS
 
 async function clearCache() {
-    const request = await fetch('./queries/clearCache.php');
+    const request = await fetch('./data/queries/clearCache.php');
     return await request;
 }
 
@@ -37,7 +37,7 @@ async function getImages() {
     const helperForm = new FormData();
     helperForm.append('js', 1);
 
-    const request = await fetch('./queries/getTaphonomyImages.php', {
+    const request = await fetch('./data/queries/getTaphonomyImages.php', {
         method: 'POST',
         body: helperForm,
     });
@@ -49,7 +49,7 @@ async function getViews() {
     const helperForm = new FormData();
     helperForm.append('js', 1);
 
-    const request = await fetch('./queries/getTaphonomyViews.php', {
+    const request = await fetch('./data/queries/getTaphonomyViews.php', {
         method: 'POST',
         body: helperForm,
     });
@@ -102,7 +102,7 @@ async function saveImageEdits(edits, imgId) {
         helperForm.append('edits', JSON.stringify(edits));
         helperForm.append('imageId', imgId);
 
-        const request = await fetch('./queries/editTaphonomyImage.php', {
+        const request = await fetch('./data/queries/editTaphonomyImage.php', {
             method: 'POST',
             body: helperForm,
         });
@@ -116,7 +116,7 @@ async function uploadImages(formdata, imageCount) {
     helperForm.append('imageCount', imageCount);
     console.log(helperForm);
     
-    const request = await fetch('./queries/uploadTaphonomyImages.php', {
+    const request = await fetch('./data/queries/uploadTaphonomyImages.php', {
         method: 'POST',
         body: helperForm,
     });

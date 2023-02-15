@@ -1,4 +1,10 @@
 <?php
+// Continue the Session
+session_start();
+
+// Load infrastructure
+require 'infrastructure.php';
+
 // Page header
 require 'header.php';
 
@@ -28,13 +34,13 @@ if ($_SESSION['experimentCategory']) {
 }
 
 // Get images view categories
-include 'queries/getTaphonomyViews.php';
+include 'data/queries/getTaphonomyViews.php';
 
 // Get images data
-include 'queries/getTaphonomyImages.php';
+include 'data/queries/getTaphonomyImages.php';
 
 // Get Licenses
-include 'queries/getLicenses.php';
+include 'data/queries/getLicenses.php';
 ?>
 
 <main>

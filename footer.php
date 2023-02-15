@@ -5,7 +5,7 @@
         ?>
         <button id="logoutBtn" type="button" title="Logout">Logout</button>
         <?php 
-    } else {
+    } else if (basename($_SERVER['SCRIPT_FILENAME'], '.php') !== 'login') {
         ?>
         <a id="loginLink" href="./login.php" target="_self" title="Login">Login</a>
         <?php

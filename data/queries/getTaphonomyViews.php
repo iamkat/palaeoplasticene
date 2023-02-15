@@ -1,12 +1,10 @@
 <?php
-session_start();
-// -----------------------------------------------
 
 function queryViews() {
     $sql = "SELECT View FROM ppc_taphonomy_views";
 
     try {
-        require 'credentials.php';
+        require 'data/credentials.php';
     
         $queryViews = $dbConnection->prepare($sql);
         $queryViews->execute();
@@ -17,13 +15,17 @@ function queryViews() {
         exit($error->getMessage());
     } 
 
-    return $viewsData;
+    if (empty($viewsData)) {
+        return;
+    } else {
+        return $viewsData;
+    }
 }
 
 $views = queryViews();
 
 if (!empty($views)) {
-    if ($_POST['js']) {
+    if (!empty($_POST['js'])) {
         exit(json_encode($views));
     } else {
         $_SESSION['views'] = $views;

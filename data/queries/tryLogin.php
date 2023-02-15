@@ -29,7 +29,7 @@ if (preg_match("/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]){8,}/", $_POST["ppcUserpass"]) ==
 // Database interaction
 try {
    // Database login
-   require 'credentials.php';
+   require '../credentials.php';
    
    // Query
    $queryAccount = $dbConnection->prepare('SELECT ppc_user_pw FROM ppc_users WHERE ppc_username = :ppcUsername');

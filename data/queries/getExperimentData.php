@@ -14,7 +14,7 @@ function queryExperiment($id, $category) {
     $sql = "SELECT * FROM $experimentsTable WHERE ppc_exp_id = $id";
 
     try {
-        require 'credentials.php';
+        require 'data/credentials.php';
 
         $experimentsQuery = $dbConnection->prepare($sql);
         $experimentsQuery->execute();
@@ -25,10 +25,14 @@ function queryExperiment($id, $category) {
         exit($error->getMessage());
     }
 
-    return $data;
+    if (empty($data)) {
+        return;
+    } else {
+        return $data;
+    }
 }
 
-// Check for experiment
+// Look up experiment
 $experiment = queryExperiment($_SESSION['experimentId'], $_SESSION['experimentCategory']);
 
 if (empty($experiment)) {

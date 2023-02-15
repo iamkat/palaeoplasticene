@@ -45,7 +45,7 @@ function queryCategories() {
   
     try {
       // Database Login
-      require 'queries/credentials.php';
+      require 'data/credentials.php';
     
       // Query
       $categoriesQuery = $dbConnection->prepare($sql);

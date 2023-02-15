@@ -1,21 +1,3 @@
-<?php
-// Session Preparation 
-session_set_cookie_params([
-    "lifetime"=>"0",
-    "path"=>"/",
-    "domain"=>$_SERVER["HTTP_HOST"],
-    "secure"=>true,
-    "httponly"=>true,
-    "samesite"=>"strict"
-]);
-
-// Begin or continue Session
-session_start();
-
-// Load infrastructure
-require 'infrastructure.php';
-?>
-
 <!DOCTYPE html>
 <html lang="en-GB">
     <head>
@@ -26,7 +8,7 @@ require 'infrastructure.php';
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         
         <title>Palaeoplasticene</title>
-        <base href="https://palaeoplasticene.katausten.com" target="_blank" />
+        <!--base href="https://palaeoplasticene.katausten.com" target="_blank" /-->
         <link rel="canonical" href="<?php
             $ppcProtocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
             $ppcUrl = $ppcProtocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
