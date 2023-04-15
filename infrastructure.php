@@ -14,7 +14,7 @@ function checkLogin() {
     // Both session variables will be set only after a user has logged in
     if (!$_SESSION['user'] || !$_SESSION['token']) {
         header('Location: denied.php');
-    } elseif (!password_verify($_SESSION['user'], $_SESSION['token'])) {
+    } elseif (!password_verify($_SESSION['user']->get_name(), $_SESSION['user']->get_token())) {
         header('Location: denied.php');
     } else {
         $_SESSION['authentication'] = true;
@@ -41,7 +41,7 @@ function ppcScript($scriptName) {
 
 // Function to query for existing categories in the database
 function queryCategories() {
-    $sql = "SELECT ppc_category FROM ppc_categories";
+    $sql = "SELECT cat_name, cat_slug FROM ppc_categories";
   
     try {
       // Database Login
@@ -50,7 +50,7 @@ function queryCategories() {
       // Query
       $categoriesQuery = $dbConnection->prepare($sql);
       $categoriesQuery->execute();
-      $categoriesData = $categoriesQuery->fetchAll(PDO::FETCH_COLUMN);
+      $categoriesData = $categoriesQuery->fetchAll(PDO::FETCH_ASSOC);
     
       $dbConnection = null;
     }

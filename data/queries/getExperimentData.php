@@ -14,7 +14,7 @@ function queryExperiment($id, $category) {
     $sql = "SELECT * FROM $experimentsTable WHERE ppc_exp_id = $id";
 
     try {
-        require 'data/credentials.php';
+        require '../credentials.php';
 
         $experimentsQuery = $dbConnection->prepare($sql);
         $experimentsQuery->execute();

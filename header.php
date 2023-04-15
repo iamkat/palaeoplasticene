@@ -1,3 +1,17 @@
+<?php
+// Autoload classes
+spl_autoload_register(function ($class_name) {
+    include 'classes/' . $class_name . '.php';
+});
+
+// Begin or continue a Session
+session_start();
+
+// Load infrastructure
+require 'infrastructure.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en-GB">
     <head>
@@ -50,7 +64,7 @@
         
         <?php 
         // Check if the categories have been queried and exist as a session variable
-        if ($_SESSION['categories']) {
+        if (!empty($_SESSION['categories'])) {
             // Add category pages to custom global array of pages where not to display the icons (infrastructure.php)
             foreach ($_SESSION['categories'] as $key => $value) {
                 array_push($noIconsPages, '/experiment-' . $key . '.php');

@@ -5,7 +5,7 @@
 
 // General database information
 $dbname = 'db'; // Your database name
-$host = '172.21.0.4'; // Your MySQL host
+$host = '127.0.0.1'; // Your MySQL host
 $port = '3306'; // Your port
 
 // Databasse login information

@@ -1,10 +1,4 @@
 <?php
-// Continue the Session
-session_start();
-
-// Load infrastructure
-require 'infrastructure.php';
-
 // Page Header
 require 'header.php';
 ?>

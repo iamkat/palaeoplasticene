@@ -25,11 +25,11 @@ $experimentData = [
 ];
 
 // Checks
-if ($_SESSION['experimentData']) {
+if (!empty($_SESSION['experimentData'])) {
     $experimentData = $_SESSION['experimentData'][0];
 }
 
-if ($_SESSION['experimentCategory']) {
+if (!empty($_SESSION['experimentCategory'])) {
     $categorySlug = $_SESSION['experimentCategory'];
 }
 

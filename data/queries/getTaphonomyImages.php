@@ -1,12 +1,13 @@
 <?php
 
 function queryTaphonomyImages($experimentId) {
-    $sql = "SELECT * FROM ppc_taphonomy_images WHERE ppc_exp_id = $experimentId";
+    $sql = "SELECT * FROM ppc_taphonomy_images WHERE ppc_exp_id = :expId";
 
     try {
         require 'data/credentials.php';
     
         $queryTaphonomyImages = $dbConnection->prepare($sql);
+        $queryTaphonomyImages->bindParam(':expId', $experimentId);
         $queryTaphonomyImages->execute();
         $taphonomyImagesData = $queryTaphonomyImages->fetchAll(PDO::FETCH_ASSOC);
 
@@ -24,6 +25,8 @@ function queryTaphonomyImages($experimentId) {
 
 if (!empty($_SESSION['experimentId'])) {
     $taphonomyImages = queryTaphonomyImages($_SESSION['experimentId']);
+} else {
+    exit(json_encode('bla'));
 }
 
 if (!empty($taphonomyImages)) {

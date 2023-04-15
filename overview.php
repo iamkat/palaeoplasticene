@@ -1,10 +1,4 @@
 <?php
-// Continue the Session
-session_start();
-
-// Load infrastructure
-require 'infrastructure.php';
-
 // Page Header
 require 'header.php';
 
@@ -21,7 +15,7 @@ $errors = array();
 function queryExperiments($user, $category) {
     // Create the table name
     $experimentsTable = sprintf('ppc_%s_experiments', $category);
-    $sql = "SELECT * FROM $experimentsTable WHERE ppc_usr_id = $user";
+    $sql = "SELECT * FROM $experimentsTable WHERE user_id = '$user'";
 
     try {
         require 'data/credentials.php';
@@ -29,54 +23,25 @@ function queryExperiments($user, $category) {
         $experimentsQuery = $dbConnection->prepare($sql);
         $experimentsQuery->execute();
         $data = $experimentsQuery->fetchAll(PDO::FETCH_ASSOC);
-    
+
         $dbConnection = null;
     } catch (PDOException $error) {
         $errors[] = $error->getMessage();
     }
 
     if (empty($data)) {
-        return;
+        return "There are no experiments yet.";
     } else {
         return $data;
     }
 }
 
-// Get user ID from username stored in the session global during login
-try {
-    // Database Login
-    require 'data/credentials.php';
-
-    // Query
-    $userIdQuery = $dbConnection->prepare('SELECT ppc_user_id FROM ppc_users WHERE ppc_username = :username');
-    $userIdQuery->bindParam(':username', $_SESSION['user']);
-    $userIdQuery->execute();
-    $userId = $userIdQuery->fetchAll(PDO::FETCH_COLUMN);
-    $_SESSION['userID'] = $userId[0];
-
-    // Database logout
-    $dbConnection = null;
-} catch (PDOException $error) {
-    $errors[] = $error->getMessage();
-}
-
 // Check if categories have already been queried
-if (!$_SESSION['categories']) {
-    try {
-        require 'data/credentials.php';
-      
-        $categoriesQuery = $dbConnection->prepare('SELECT ppc_category FROM ppc_categories');
-        $categoriesQuery->execute();
-        $categoriesData = $categoriesQuery->fetchAll(PDO::FETCH_COLUMN);
-
-        $dbConnection = null;
-
-        foreach ($categoriesData as $value) {    
-          $_SESSION['categories'][categorySlug($value)] = $value;
-        }
-      } catch (PDOException $error) {
-        $errors[] = $error->getMessage();
-      }
+if (empty($_SESSION['categories'])) {
+    // Query for categories with a custom function (infrastructure.php) and store each category inside a session cookie
+    foreach (queryCategories() as $value) {    
+        $_SESSION['categories'][$value['cat_slug']] = $value['cat_name'];
+    }
 }
 ?>
 
@@ -94,17 +59,33 @@ if (!$_SESSION['categories']) {
         <section class="categoryExperiments">
         
         <?php
-        $experiments = queryExperiments($_SESSION['userID'], $slug);
+        $experiments = queryExperiments($_SESSION['user']->get_id(), $slug);
 
         if (!empty($experiments)) {
 
+            // Create a session variable for categorie's experiments
+            $_SESSION[$slug . 'Experiments'] = array();
+
             foreach ($experiments as $exp) {
+                // Create a dynamic class name
+                $className = ucfirst($slug);
+
+                // Create Experiment Objects and put them in the session storage
+                $_SESSION[$slug . 'Experiments'][] = new $className(
+                    $exp['experiment_id'], // Experiment id
+                    $exp['Name'], // Experiment name
+                    $slug, // Experiment category slug
+                    $exp['user_id'], // Experiment user id
+                    $exp['License'], // Experiment license
+                );
+
+                // HOW TO DYNAMICALLY CREATE THE SUBCLASS?
                 ?>
                 <div class="overviewExperiment">
                     <h3><?php print($exp['Name']); ?></h3>
                     <?php
                         foreach ($exp as $key => $value) {
-                            if ($key == 'ppc_exp_id' || $key == 'Name' || $key == 'ppc_usr_id') {
+                            if ($key == 'experiment_id' || $key == 'Name' || $key == 'user_id') {
                                 continue;
                             }
                             ?>
@@ -113,12 +94,12 @@ if (!$_SESSION['categories']) {
                         }
                     ?>
                     <div>
-                        <button type="button" class="editBtn" data-category="<?php print($slug); ?>" data-experiment-id="<?php print($exp['ppc_exp_id']) ?>">Edit</button>
+                        <button type="button" class="editBtn" data-category="<?php print($slug); ?>" data-experiment-id="<?php print($exp['experiment_id']) ?>">Edit</button>
                     </div>
                 </div>
                 <?php
             }
-
+            
         }
         ?>
         <div class="newExperiment">
@@ -126,7 +107,8 @@ if (!$_SESSION['categories']) {
         </div>
         </section>
         <?php
-        // End of the loop to create the overview menu
+    // End of the loop to create the overview menu
+    print_r($_SESSION[$slug . 'Experiments']);
     }
 
     // Create an error section if errors exist

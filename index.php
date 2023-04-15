@@ -1,30 +1,14 @@
 <?php
-// Session Preparation 
-session_set_cookie_params([
-  "lifetime"=>"0",
-  "path"=>"/",
-  "domain"=>$_SERVER["HTTP_HOST"],
-  "secure"=>true,
-  "httponly"=>true,
-  "samesite"=>"strict"
-]);
-
-// Begin a Session
-session_start();
-
-// Load infrastructure
-require 'infrastructure.php';
+// Header
+require 'header.php';
 
 // Query for categories with a custom function (infrastructure.php) and store each category inside a session cookie
 foreach (queryCategories() as $value) {    
-  $_SESSION['categories'][categorySlug($value)] = $value;
+  $_SESSION['categories'][$value['cat_slug']] = $value['cat_name'];
 }
 
 // Set the initial authentication status as a session cookie
 $_SESSION['authentication'] = false;
-
-// Header
-require 'header.php';
 ?>
 
 <main>

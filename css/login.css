@@ -21,7 +21,22 @@
     margin-bottom: min(1rem, 5vh);
 }
 
+.loginInput:invalid {
+    border-color: deeppink;
+}
+
+#loginSubmit:disabled {
+    cursor: not-allowed;
+    background: lightgrey;
+}
+
+#loginSubmit:disabled:hover {
+    background: lightgrey;
+    color: white;
+    border-color: white;
+}
+
 #loginError {
     margin-top: min(1rem, 5vh);
-    color: red;
+    color: deeppink;
 }

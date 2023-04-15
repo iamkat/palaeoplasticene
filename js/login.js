@@ -13,9 +13,9 @@ const loginSubmit = document.getElementById('loginSubmit');
 // Login error message area
 const loginError = document.getElementById('loginError');
 // Error message for username input
-const errorUser = 'Usernames cannot be empty and have to be composed out of minimum 3 lower or upper case characters or numbers. Please try again.';
+const errorUser = "Usernames cannot be empty and have to be composed out of minimum 3 lower or upper case characters or numbers. Please try again.\n";
 // Error message for password input
-const errorPassword = 'Passwords cannot be empty and have to be composed out of minimum 8 characters with at least one lower and one upper case character as well as one number. Please try again.';
+const errorPassword = "Passwords cannot be empty and have to be composed out of minimum 8 characters with at least one lower and one upper case character as well as one number. Please try again.\n";
 
 // -----------------------------------------------------------------
 // FUNCTIONS
@@ -35,12 +35,12 @@ async function ppcLogin(formData) {
 }
 
 function validateInput(input) {
-    if (input.checkValidity()) {
-        input.style.borderColor = '';
-        loginError.innerHTML = '';
-    } else {
-        input.style.borderColor = 'red';
+    if (!input.checkValidity()) {
         loginError.innerHTML = input.validationMessage;
+        return false;
+    } else {
+        loginError.innerHTML = '';
+        return true;
     }
 }
 
@@ -49,15 +49,22 @@ function validateInput(input) {
 
 // Create user input feedback
 if (userName && passWord) {
-    userName.addEventListener('change', function(event) {
-        validateInput(event.target);
+    userName.addEventListener('keyup', function(event) {
+        if (validateInput(event.target) && validateInput(passWord)) {
+            loginSubmit.disabled = false;
+        };
     }, false);
 
-    passWord.addEventListener('change', function(event) {
+    passWord.addEventListener('keyup', function(event) {
         validateInput(event.target);
+
+        if (validateInput(event.target) && validateInput(userName)) {
+            loginSubmit.disabled = false;
+        };
     }, false);
 }
 
+// Submit button functionality
 if (loginSubmit && userName && passWord) {
     loginSubmit.addEventListener('click', async function(event) {
 
