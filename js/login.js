@@ -81,7 +81,7 @@ if (loginSubmit && userName && passWord) {
                 loginError.innerHTML = response;
             } else {
                 // Redirect to overview page
-                window.location.href = './overview.php';
+                window.location.href = './overview';
             }
         }
     }, false);

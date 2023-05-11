@@ -1,14 +1,9 @@
 <?php
-// Autoload classes
-spl_autoload_register(function ($class_name) {
-    include 'classes/' . $class_name . '.php';
-});
+// Load infrastructure
+require 'infrastructure.php';
 
 // Begin or continue a Session
 session_start();
-
-// Load infrastructure
-require 'infrastructure.php';
 
 ?>
 
@@ -37,20 +32,20 @@ require 'infrastructure.php';
         <?php
         // Switch to print style links for the different sites with custom function (infrastructure.php)
         switch ($_SERVER["REQUEST_URI"]) {
-            case '/';
-            case '/index.php';
+            case '/':
+            case '/index':
                 ppcStyle('index');
                 break;
-            case '/login.php':
+            case '/login':
                 ppcStyle('login');
                 break;
-            case '/profile.php':
+            case '/profile':
                 ppcStyle('profile');
                 break;
-            case '/overview.php':
+            case '/overview':
                 ppcStyle('overview');
                 break;
-            case '/experiment-taphonomy.php':
+            case '/experiment-taphonomy':
                 ppcStyle('experiment');
                 break;
         }
@@ -67,14 +62,14 @@ require 'infrastructure.php';
         if (!empty($_SESSION['categories'])) {
             // Add category pages to custom global array of pages where not to display the icons (infrastructure.php)
             foreach ($_SESSION['categories'] as $key => $value) {
-                array_push($noIconsPages, '/experiment-' . $key . '.php');
+                array_push($noIconsPages, '/experiment-' . $key);
             }
             
             // Conditionally render the navbar with icon display
             if (!in_array($_SERVER['REQUEST_URI'], $noIconsPages)) {
                 foreach ($_SESSION['categories'] as $key => $value) {
                     ?>
-                        <a class="ppcLink iconLink" href="./<?php print($key); ?>.php" target="_self" title="<?php print($value); ?>"><img class="expIcon" src="./assets/img/<?php print($key); ?>.png" alt="<?php print($value); ?>" /></a>
+                        <a class="ppcLink iconLink" href="./<?php print($key); ?>" target="_self" title="<?php print($value); ?>"><img class="expIcon" src="./assets/img/<?php print($key); ?>.png" alt="<?php print($value); ?>" /></a>
                     <?php
                 }
             }
@@ -83,8 +78,8 @@ require 'infrastructure.php';
         // Include Parsedown
         include 'vendor/Parsedown.php';
 
-        // Get the current file name
-        $currentFilename = basename($_SERVER['SCRIPT_FILENAME'], '.php');
+        // Get the current path
+        $currentPath = basename($_SERVER['REQUEST_URI']);
         ?>
 
         </nav>

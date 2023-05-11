@@ -5,9 +5,9 @@
         ?>
         <button id="logoutBtn" type="button" title="Logout">Logout</button>
         <?php 
-    } else if (basename($_SERVER['SCRIPT_FILENAME'], '.php') !== 'login') {
+    } else if (basename($_SERVER['REQUEST_URI']) !== 'login') {
         ?>
-        <a id="loginLink" href="./login.php" target="_self" title="Login">Login</a>
+        <a id="loginLink" href="./login" target="_self" title="Login">Login</a>
         <?php
     }
     ?>
@@ -22,30 +22,30 @@
 
 <?php
     switch ($_SERVER["REQUEST_URI"]) {
-        case '/';
-        case '/index.php';
+        case '/':
+        case '/index':
             ppcScript('index');
             break;
-        case '/login.php':
+        case '/login':
             ppcScript('login');
             break;
-        case '/denied.php':
+        case '/denied':
             ppcScript('denied');
             break;
-        case '/profile.php':
+        case '/profile':
             ppcScript('profile');
             break;
-        case '/overview.php':
+        case '/overview':
             ppcScript('overview');
             break;
-        case '/taphonomy.php';
-        case '/crystals.php';
-        case '/sounds.php';
-        case '/incidentaltaphonomy.php';
-        case '/fiction.php';
+        case '/taphonomy':
+        case '/crystals':
+        case '/sounds':
+        case '/incidentaltaphonomy':
+        case '/fiction':
             ppcScript('parsedown');
             break;
-        case '/experiment-taphonomy.php':
+        case '/experiment-taphonomy':
             ppcScript('taphonomy');
             break;
     }

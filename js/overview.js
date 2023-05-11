@@ -48,7 +48,7 @@ if (editBtns) {
             if (response !== 'confirm') {
                 alert('Something went awefully wrong. We recommend you to logout, reload the page and try again.');
             } else {
-                window.location.href = './experiment-' + this.getAttribute('data-category') + '.php';
+                window.location.href = './experiment-' + this.getAttribute('data-category');
             }
         }, false);
     }
@@ -62,7 +62,7 @@ if (newBtns) {
             if (response !== 'confirm') {
                 alert('Something went awefully wrong. We recommend you to logout, reload the page and try again.');
             } else {
-                window.location.href = './experiment-' + this.getAttribute('data-category') + '.php';
+                window.location.href = './experiment-' + this.getAttribute('data-category');
             }
         }, false);
     }

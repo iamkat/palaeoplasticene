@@ -1,6 +1,6 @@
 <?php
 // Page Header
-require 'header.php';
+require 'parts/header.php';
 ?>
 
 <main>
@@ -10,5 +10,5 @@ require 'header.php';
 
 <?php
 // Footer
-require 'footer.php';
+require 'parts/footer.php';
 ?>

@@ -1,4 +1,15 @@
 <?php
+use Palaeoplasticene\User;
+
+// Autoload classes
+spl_autoload_register(function ($class_name) {
+   $classPath = str_replace('\\', '/', $class_name);
+   $file = '../../classes/' . $classPath . '.php';
+   if (file_exists($file)) {
+      include $file;
+   }
+});
+
 session_start();
 // -----------------------------------------------
 
@@ -53,8 +64,6 @@ if (empty($accountData)) {
 } else if (!password_verify($passWord, $accountData['user_pw'])) {
    $errorMsg = 'Sorry, the password is incorrect. Try again or set a new password.';
 } else {
-   require '../../classes/User.php';
-
    $_SESSION['user'] = new User(
       $accountData['user_id'],
       $accountData['user_pw'],

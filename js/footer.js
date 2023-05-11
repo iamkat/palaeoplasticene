@@ -11,7 +11,7 @@ const logoutBtn = document.getElementById("logoutBtn");
 
 async function ppcLogout() {
     try {
-        const request = await fetch('./queries/tryLogout.php');
+        const request = await fetch('./data/queries/tryLogout.php');
         return await request.text();
     } catch (error) {
         console.log(error);

@@ -6,7 +6,7 @@ session_start();
 require 'infrastructure.php';
 
 // Page Header
-require 'header.php';
+require 'parts/header.php';
 ?>
 
 <main>
@@ -23,5 +23,5 @@ print $htmlContent->text(file_get_contents('content/404.md'));
 
 <?php 
 // Page Footer
-require 'footer.php'; 
+require 'parts/footer.php'; 
 ?>

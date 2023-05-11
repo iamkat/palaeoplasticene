@@ -1,9 +1,18 @@
 <?php
+// Autoload classes
+spl_autoload_register(function ($class_name) {
+    $classPath = str_replace('\\', '/', $class_name);
+    $file = 'classes/' . $classPath . '.php';
+    if (file_exists($file)) {
+       include $file;
+    }
+ });
+
 // -----------------------------------------------
 // CUSTOM GLOBAL VARIABLES
 // -----------------------------------------------
 
-$noIconsPages = ['/', '/index.php', '/overview.php'];
+$noIconsPages = ['/', '/index', '/overview'];
 
 // -----------------------------------------------
 // CUSTOM FUNCTIONS
@@ -11,11 +20,11 @@ $noIconsPages = ['/', '/index.php', '/overview.php'];
 
 // Function to check if a user is logged in
 function checkLogin() {
-    // Both session variables will be set only after a user has logged in
-    if (!$_SESSION['user'] || !$_SESSION['token']) {
-        header('Location: denied.php');
+    // The variable will be set after a user has successfully logged in
+    if (!$_SESSION['user']) {
+        header('Location: denied');
     } elseif (!password_verify($_SESSION['user']->get_name(), $_SESSION['user']->get_token())) {
-        header('Location: denied.php');
+        header('Location: denied');
     } else {
         $_SESSION['authentication'] = true;
     }

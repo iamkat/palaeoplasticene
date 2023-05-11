@@ -1,45 +1,58 @@
 <?php
-// Header
-require 'header.php';
+/**
+ * Set up a simple router as a switch to compare against the requested URI
+ */
 
-// Query for categories with a custom function (infrastructure.php) and store each category inside a session cookie
-foreach (queryCategories() as $value) {    
-  $_SESSION['categories'][$value['cat_slug']] = $value['cat_name'];
+// Requested URI
+$request = $_SERVER['REQUEST_URI'];
+
+// Path to the page templates
+$viewDir = '/views/';
+
+switch ( $request ) {
+    case '':
+    case '/':
+        require __DIR__ . $viewDir . 'home.php';
+        break;
+
+    case '/taphonomy':
+        require __DIR__ . $viewDir . 'taphonomy.php';
+        break;
+
+    case '/crystals':
+        require __DIR__ . $viewDir . 'crystals.php';
+        break;
+
+    case '/sounds':
+        require __DIR__ . $viewDir . 'sounds.php';
+        break;
+
+    case '/incidental-taphonomy':
+        require __DIR__ . $viewDir . 'incidental-taphonomy.php';
+        break;
+
+    case '/fiction':
+        require __DIR__ . $viewDir . 'fiction.php';
+        break;
+
+    case '/login':
+        require __DIR__ . $viewDir . 'login.php';
+        break;
+
+    case '/overview':
+        require __DIR__ . $viewDir . 'overview.php';
+        break;
+
+    case '/denied':
+        require __DIR__ . $viewDir . 'denied.php';
+        break;
+
+    case '/experiment-taphonomy':
+        require __DIR__ . $viewDir . 'experiment-taphonomy.php';
+        break;
+
+    default:
+        http_response_code(404);
+        require __DIR__ . $viewDir . '404.php';
 }
-
-// Set the initial authentication status as a session cookie
-$_SESSION['authentication'] = false;
-?>
-
-<main>
-
-<nav id="frontMenu">
-
-    <?php
-    // Begin of the loop to create the frontpage menu from the categories constant created in the header
-    foreach ($_SESSION['categories'] as $key => $value) {
-      ?>
-        <div class="frontMenuItem">
-            <a 
-              class="ppcLink navLink" 
-              href="./<?php print($key); ?>.php" 
-              title="<?php print($value); ?> Experiment" 
-              target="_self" data-category="<?php print($value); ?>">
-                <div class="ppcCircle">
-                    <img class="expLogo" src="./assets/img/<?php print($key); ?>.png" alt="Palaeoplastiscene <?php print($value); ?>" decoding="async" loading="lazy" />
-                </div>
-            </a>
-            <p class="frontMenuItemCaption"><?php print($value); ?></p>
-        </div>
-      <?php
-    }
-    ?>
-
-</nav>
-
-</main>
-
-<?php
-// Footer
-require 'footer.php';
 ?>

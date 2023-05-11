@@ -1,12 +1,6 @@
 <?php
-// Continue the Session
-session_start();
-
-// Load infrastructure
-require 'infrastructure.php';
-
 // Page header
-require 'header.php';
+require 'parts/header.php';
 
 // Login Check (with a custom function from infrastructure.php)
 checkLogin();
@@ -219,5 +213,5 @@ include 'data/queries/getLicenses.php';
 
 <?php
 // Page footer
-require 'footer.php';
+require 'parts/footer.php';
 ?>
